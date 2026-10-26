@@ -1,0 +1,671 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import Cover from '../../components/Cover.astro';
+import { school, courses, instructors, PAYMENTS } from '../../data/courses.js';
+import { lessonsOf, rupees } from '../../lib/learn.js';
+
+export function getStaticPaths() {
+  return courses.filter((c) => c.price > 0).map((c) => ({ params: { slug: c.slug }, props: { course: c } }));
+}
+
+const { course: c } = Astro.props;
+const teacher = instructors[c.instructor as keyof typeof instructors];
+const payIcons = { jazzcash: 'phone', easypaisa: 'phone', card: 'card' } as const;
+const payDemo: Record<string, string> = {
+  jazzcash: 'In a real school, Complete payment would open JazzCash so you approve the payment with your own PIN. This demo skips that step and charges nothing.',
+  easypaisa: 'In a real school, Complete payment would open Easypaisa so you approve the payment in your account. This demo skips that step and charges nothing.',
+  card: 'In a real school, Complete payment would open the bank’s secure card page. This demo has no card page and never asks for card details.',
+};
+---
+
+<Base title={`Checkout: ${c.title} | ${school.full}`} description={`Buy ${c.title} with JazzCash, Easypaisa or card. A demo checkout: nothing is charged.`}>
+  <div class="page checkout" data-checkout-page data-slug={c.slug} data-price={c.price}>
+    <a class="back" href={`/course/${c.slug}/`}><Icon name="left" />Back to the course</a>
+    <h1>Checkout</h1>
+
+    <div class="owned" data-owned hidden>
+      <Icon name="check" />
+      <div>
+        <p class="owned-title">You already have this course.</p>
+        <p>It is saved in My learning on this browser.</p>
+      </div>
+      <a class="button primary" href={`/learn/${c.slug}/`}>Go to the course</a>
+    </div>
+
+    <form class="grid" data-checkout novalidate>
+      <div class="left">
+        <fieldset class="block">
+          <legend>Your details</legend>
+          <p class="block-note">Your name goes on your certificate. Both stay in this browser only.</p>
+          <div class="two">
+            <label class="field">
+              <span class="field-label">Full name</span>
+              <input name="name" autocomplete="name" required aria-describedby="name-error" />
+              <span class="field-error" id="name-error" hidden></span>
+            </label>
+            <label class="field">
+              <span class="field-label">Mobile number, for course updates</span>
+              <input name="mobile" type="tel" inputmode="tel" autocomplete="tel" placeholder="03XX XXXXXXX" required aria-describedby="mobile-error" />
+              <span class="field-error" id="mobile-error" hidden></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="block pays">
+          <legend>Payment method</legend>
+          {
+            Object.entries(PAYMENTS).map(([key, p], i) => (
+              <div class="pay">
+                <label class="pay-option">
+                  <input type="radio" name="pay" value={key} checked={i === 0} />
+                  <span class="pay-dot" aria-hidden="true" />
+                  <Icon name={payIcons[key as keyof typeof payIcons]} />
+                  <span class="pay-words">
+                    <strong>{p.label}</strong>
+                    <span>{p.note}</span>
+                  </span>
+                </label>
+                <p class="pay-demo" data-pay-demo={key} hidden={i !== 0}>
+                  {payDemo[key]}
+                </p>
+              </div>
+            ))
+          }
+        </fieldset>
+      </div>
+
+      <aside class="summary" aria-labelledby="summary-title">
+        <h2 id="summary-title">Order summary</h2>
+        <div class="item">
+          <Cover slug={c.slug} class="item-cover" />
+          <div>
+            <p class="item-title">{c.title}</p>
+            <p class="item-by">{teacher.name} · {lessonsOf(c).length} lessons</p>
+          </div>
+        </div>
+        <div class="coupon">
+          <label class="field">
+            <span class="field-label">Coupon code</span>
+            <span class="coupon-row">
+              <input name="coupon" autocomplete="off" placeholder="Try DEMO50" aria-describedby="coupon-msg" />
+              <button class="button" type="button" data-apply>Apply</button>
+            </span>
+          </label>
+          <p class="coupon-msg" id="coupon-msg" aria-live="polite" data-coupon-msg></p>
+        </div>
+        <dl class="sums">
+          <div>
+            <dt>Course price</dt>
+            <dd class="num">{rupees(c.price)}</dd>
+          </div>
+          <div data-discount-row hidden>
+            <dt>Coupon DEMO50</dt>
+            <dd class="num" data-discount></dd>
+          </div>
+          <div class="total">
+            <dt>Total</dt>
+            <dd class="num" data-total>{rupees(c.price)}</dd>
+          </div>
+        </dl>
+        <button class="button primary wide" type="submit" data-pay-btn>
+          <span data-pay-text>Complete payment</span>
+        </button>
+        <p class="status" role="status" data-status></p>
+        <p class="demo">Demo checkout. Nothing is charged and no payment details are asked for.</p>
+      </aside>
+    </form>
+
+    <section class="done" data-done hidden tabindex="-1" aria-labelledby="done-title">
+      <span class="done-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+      </span>
+      <h2 id="done-title">You are enrolled</h2>
+      <p class="done-course">{c.title}</p>
+      <dl class="done-facts">
+        <div>
+          <dt>Order</dt>
+          <dd class="num" data-done-no></dd>
+        </div>
+        <div>
+          <dt>Paid with</dt>
+          <dd data-done-pay></dd>
+        </div>
+        <div>
+          <dt>Amount</dt>
+          <dd class="num" data-done-amount></dd>
+        </div>
+      </dl>
+      <p class="done-demo">This was a demo payment. Nothing was charged.</p>
+      <div class="done-actions">
+        <a class="button primary" href={`/learn/${c.slug}/#l1`}><Icon name="play" />Start learning</a>
+        <a class="button" href="/my/">My learning</a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  import { enrol, isEnrolled, rupees, writeStore, NAME_KEY } from '../../lib/learn.js';
+  import { COUPON, PAYMENTS } from '../../data/courses.js';
+
+  const page = document.querySelector<HTMLElement>('[data-checkout-page]')!;
+  const slug = page.dataset.slug!;
+  const price = Number(page.dataset.price);
+  const form = page.querySelector<HTMLFormElement>('[data-checkout]')!;
+  const owned = page.querySelector<HTMLElement>('[data-owned]')!;
+  const done = page.querySelector<HTMLElement>('[data-done]')!;
+  const status = form.querySelector<HTMLElement>('[data-status]')!;
+  const payBtn = form.querySelector<HTMLButtonElement>('[data-pay-btn]')!;
+  const payText = form.querySelector<HTMLElement>('[data-pay-text]')!;
+  const couponInput = form.elements.namedItem('coupon') as HTMLInputElement;
+  const couponMsg = form.querySelector<HTMLElement>('[data-coupon-msg]')!;
+  let off = 0;
+
+  if (isEnrolled(slug)) {
+    owned.hidden = false;
+    form.hidden = true;
+  }
+
+  const total = () => Math.round(price * (1 - off));
+
+  function paintTotal() {
+    form.querySelector<HTMLElement>('[data-discount-row]')!.hidden = off === 0;
+    form.querySelector('[data-discount]')!.textContent = `− ${rupees(price - total())}`;
+    form.querySelector('[data-total]')!.textContent = rupees(total());
+    payText.textContent = `Complete payment, ${rupees(total())}`;
+  }
+
+  form.querySelector('[data-apply]')!.addEventListener('click', () => {
+    const code = couponInput.value.trim().toUpperCase();
+    if (!code) {
+      couponMsg.textContent = 'Type a coupon code first.';
+      couponMsg.className = 'coupon-msg bad';
+      return;
+    }
+    if (code === COUPON.code) {
+      off = COUPON.off;
+      couponMsg.textContent = `${COUPON.code} applied: ${Math.round(COUPON.off * 100)}% off.`;
+      couponMsg.className = 'coupon-msg good';
+    } else {
+      off = 0;
+      couponMsg.textContent = `${code} is not a valid code. Try DEMO50.`;
+      couponMsg.className = 'coupon-msg bad';
+    }
+    paintTotal();
+  });
+  couponInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      form.querySelector<HTMLButtonElement>('[data-apply]')!.click();
+    }
+  });
+
+  form.querySelectorAll<HTMLInputElement>('input[name="pay"]').forEach((r) =>
+    r.addEventListener('change', () => form.querySelectorAll<HTMLElement>('[data-pay-demo]').forEach((p) => (p.hidden = p.dataset.payDemo !== r.value))),
+  );
+
+  const checks: Record<string, (v: string) => string> = {
+    name: (v) => (v.trim().length >= 2 ? '' : 'Write your full name. It goes on your certificate.'),
+    mobile: (v) => (/^03\d{2}[\s-]?\d{7}$/.test(v.trim()) ? '' : 'Write a Pakistani mobile number like 03XX XXXXXXX, 11 digits.'),
+  };
+
+  function check(name: string) {
+    const el = form.elements.namedItem(name) as HTMLInputElement;
+    const msg = checks[name](el.value);
+    const err = form.querySelector<HTMLElement>(`#${name}-error`)!;
+    err.textContent = msg;
+    err.hidden = !msg;
+    if (msg) el.setAttribute('aria-invalid', 'true');
+    else el.removeAttribute('aria-invalid');
+    return !msg;
+  }
+
+  Object.keys(checks).forEach((name) => {
+    const el = form.elements.namedItem(name) as HTMLInputElement;
+    el.addEventListener('blur', () => el.value && check(name));
+    el.addEventListener('input', () => {
+      if (!el.getAttribute('aria-invalid')) return;
+      check(name);
+      if (!form.querySelector('.field-error:not([hidden])')) status.textContent = '';
+    });
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (payBtn.disabled) return;
+    const bad = Object.keys(checks).filter((n) => !check(n));
+    if (bad.length) {
+      status.textContent = bad.length === 1 ? 'One field needs fixing, marked in red.' : 'Two fields need fixing, marked in red.';
+      (form.elements.namedItem(bad[0]) as HTMLElement).focus();
+      return;
+    }
+    status.textContent = '';
+    payBtn.disabled = true;
+    payText.textContent = 'Confirming payment…';
+    window.setTimeout(finish, 900);
+  });
+
+  function finish() {
+    const data = new FormData(form);
+    const pay = String(data.get('pay')) as keyof typeof PAYMENTS;
+    const name = String(data.get('name')).trim();
+    const no = `TK-${String(Math.floor(100000 + Math.random() * 900000))}`;
+    enrol(slug, { paid: true, pay, amount: total(), order: no });
+    writeStore(NAME_KEY, name);
+    done.querySelector('[data-done-no]')!.textContent = no;
+    done.querySelector('[data-done-pay]')!.textContent = `${PAYMENTS[pay].label} (demo)`;
+    done.querySelector('[data-done-amount]')!.textContent = rupees(total());
+    form.hidden = true;
+    page.querySelector('h1')!.hidden = true;
+    done.hidden = false;
+    done.focus();
+  }
+
+  paintTotal();
+</script>
+
+<style>
+  .checkout {
+    padding-block: var(--space-6) 0;
+  }
+
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .back :global(.icon) {
+    width: 18px;
+  }
+
+  .checkout h1 {
+    margin-top: var(--space-2);
+    font-size: var(--step-3);
+  }
+
+  .owned {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
+    padding: var(--space-5);
+    border-radius: var(--radius);
+    background: var(--free-soft);
+  }
+
+  .owned > :global(.icon) {
+    width: 32px;
+    color: var(--free);
+    stroke-width: 2.4;
+  }
+
+  .owned-title {
+    font-weight: 700;
+    font-size: var(--step-1);
+  }
+
+  .owned > div {
+    flex: 1;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 400px;
+    gap: var(--space-7);
+    align-items: start;
+    margin-top: var(--space-6);
+  }
+
+  .left {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  .block {
+    display: grid;
+    gap: var(--space-4);
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .block legend {
+    float: left;
+    width: 100%;
+    padding: 0;
+    font-family: var(--font-head);
+    font-size: var(--step-2);
+    font-weight: 700;
+  }
+
+  .block legend + * {
+    clear: both;
+  }
+
+  .block-note {
+    margin-top: calc(var(--space-2) * -1);
+    color: var(--ink-3);
+    font-size: var(--step--1);
+  }
+
+  .two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+
+  .pays {
+    gap: 0;
+  }
+
+  .pay {
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--radius-s);
+    transition: border-color 160ms ease;
+  }
+
+  .pay + .pay {
+    margin-top: var(--space-3);
+  }
+
+  .pay:has(input:checked) {
+    border-color: var(--brand);
+    background: var(--brand-soft);
+  }
+
+  .pay-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    cursor: pointer;
+  }
+
+  .pay-option input {
+    position: absolute;
+    opacity: 0;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+  }
+
+  .pay-dot {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--ink-3);
+    border-radius: 50%;
+    background: var(--white);
+  }
+
+  .pay-dot::after {
+    content: '';
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--brand);
+    transform: scale(0);
+    transition: transform 160ms var(--ease-out);
+  }
+
+  .pay-option input:checked + .pay-dot {
+    border-color: var(--brand);
+  }
+
+  .pay-option input:checked + .pay-dot::after {
+    transform: scale(1);
+  }
+
+  .pay-option input:focus-visible + .pay-dot {
+    outline: 3px solid var(--brand);
+    outline-offset: 3px;
+  }
+
+  .pay-option > :global(.icon) {
+    flex: none;
+    width: 24px;
+    color: var(--ink-2);
+  }
+
+  .pay-words {
+    display: grid;
+  }
+
+  .pay-words span {
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+
+  .pay-demo {
+    margin: 0 var(--space-4) var(--space-4) calc(var(--space-4) + 22px + var(--space-3));
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+
+  .summary {
+    position: sticky;
+    top: 88px;
+    display: grid;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow);
+  }
+
+  .summary h2 {
+    font-size: var(--step-2);
+  }
+
+  .item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: var(--space-3);
+    align-items: center;
+  }
+
+  .item :global(.item-cover) {
+    border-radius: var(--radius-s);
+  }
+
+  .item-title {
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .item-by {
+    font-size: var(--step--1);
+    color: var(--ink-3);
+  }
+
+  .coupon-row {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .coupon-row input {
+    flex: 1;
+    min-width: 0;
+    text-transform: uppercase;
+  }
+
+  .coupon-row input::placeholder {
+    text-transform: none;
+  }
+
+  .coupon-msg {
+    min-height: 1.4em;
+    margin-top: var(--space-1);
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+
+  .coupon-msg:empty {
+    display: none;
+  }
+
+  .coupon-msg.good {
+    color: var(--free);
+  }
+
+  .coupon-msg.bad {
+    color: var(--error);
+  }
+
+  .sums {
+    display: grid;
+    margin: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .sums > div {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-block: var(--space-2);
+  }
+
+  .sums dd {
+    margin: 0;
+  }
+
+  .sums .total {
+    margin-top: var(--space-1);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--line);
+    font-size: var(--step-1);
+    font-weight: 700;
+  }
+
+  .status {
+    font-weight: 600;
+    color: var(--error);
+  }
+
+  .status:empty {
+    display: none;
+  }
+
+  .demo {
+    font-size: var(--step--1);
+    color: var(--ink-3);
+    text-align: center;
+  }
+
+  .done {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-3);
+    max-width: 560px;
+    margin: var(--space-6) auto 0;
+    padding: var(--space-7) var(--space-6);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow);
+    text-align: center;
+    outline: none;
+  }
+
+  .done-mark {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--free);
+  }
+
+  .done-mark svg {
+    width: 34px;
+    fill: none;
+    stroke: var(--white);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 22;
+    animation: draw 480ms var(--ease-out) 120ms both;
+  }
+
+  @keyframes draw {
+    from {
+      stroke-dashoffset: 22;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .done h2 {
+    font-size: var(--step-3);
+  }
+
+  .done-course {
+    font-size: var(--step-1);
+    color: var(--ink-2);
+  }
+
+  .done-facts {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: var(--space-5);
+    margin: var(--space-3) 0 0;
+  }
+
+  .done-facts dt {
+    font-size: var(--step--1);
+    color: var(--ink-3);
+  }
+
+  .done-facts dd {
+    margin: 0;
+    font-weight: 700;
+  }
+
+  .done-demo {
+    font-size: var(--step--1);
+    color: var(--ink-3);
+  }
+
+  .done-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  @media (max-width: 960px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+
+    .summary {
+      position: static;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .two {
+      grid-template-columns: 1fr;
+    }
+
+    .done {
+      padding: var(--space-6) var(--space-4);
+    }
+
+    .done-facts {
+      grid-template-columns: 1fr;
+      gap: var(--space-2);
+    }
+  }
+</style>

@@ -1,0 +1,879 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import Cover from '../../components/Cover.astro';
+import Stars from '../../components/Stars.astro';
+import Avatar from '../../components/Avatar.astro';
+import CourseCard from '../../components/CourseCard.astro';
+import { school, courses, instructors, reviews, CATEGORIES } from '../../data/courses.js';
+import { count, lessonsOf, minutes, priceLabel, totalMins } from '../../lib/learn.js';
+
+export function getStaticPaths() {
+  return courses.map((c) => ({ params: { slug: c.slug }, props: { course: c } }));
+}
+
+const { course: c } = Astro.props;
+const teacher = instructors[c.instructor as keyof typeof instructors];
+const lessons = lessonsOf(c);
+const firstPreview = lessons.find((l) => l.preview)!;
+const said = reviews.filter((r) => r.slug === c.slug);
+const more = courses.filter((x) => x.slug !== c.slug).slice(0, 3);
+const teacherCourses = courses.filter((x) => x.instructor === c.instructor);
+const free = !c.price;
+---
+
+<Base title={`${c.title}: ${priceLabel(c)} | ${school.full}`} description={`${c.subtitle} ${c.hours} hours, ${lessons.length} lessons, ${c.level}. A demo site.`} current="courses">
+  <section class="top" aria-labelledby="course-title">
+    <div class="page top-inner">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="/#courses">Courses</a>
+        <Icon name="right" />
+        <span>{CATEGORIES[c.category as keyof typeof CATEGORIES]}</span>
+      </nav>
+      <h1 id="course-title">{c.title}</h1>
+      <p class="top-sub">{c.subtitle}</p>
+      <p class="top-rating">
+        {free && <span class="tag free">Free course</span>}
+        <Stars rating={c.rating} ratings={c.ratings} class="top-stars" />
+        <span class="num">{count(c.learners)} learners</span>
+      </p>
+      <p class="top-by">Created by <a href="#instructor">{teacher.name}</a></p>
+      <p class="top-meta">
+        <span><Icon name="calendar" />Updated {c.updated}</span>
+        <span><Icon name="globe" />English, with Urdu help</span>
+        <span><Icon name="level" />{c.level}</span>
+      </p>
+      <p class="top-demo">Ratings and learner numbers are made up for this demo.</p>
+    </div>
+  </section>
+
+  <div class="page body">
+    <aside class="buy" aria-label={free ? 'Start this course' : 'Buy this course'} data-buy data-slug={c.slug} data-free={free ? '1' : '0'}>
+      <a class="buy-cover" href={`/learn/${c.slug}/#${firstPreview.id}`}>
+        <Cover slug={c.slug} />
+        <span class="buy-preview">
+          <span class="buy-play"><Icon name="play" /></span>
+          Preview this course
+        </span>
+      </a>
+      <div class="buy-body">
+        <p class="buy-price">{free ? 'Free' : <span class="num">{priceLabel(c)}</span>}</p>
+        <div class="buy-progress" data-buy-progress hidden>
+          <div class="bar"><span></span></div>
+          <span class="num" data-buy-progress-text></span>
+        </div>
+        {
+          free ? (
+            <button class="button primary wide" type="button" data-start>
+              Start free course
+            </button>
+          ) : (
+            <a class="button primary wide" href={`/checkout/${c.slug}/`} data-buy-link>
+              Buy now
+            </a>
+          )
+        }
+        <a class="button primary wide" href={`/learn/${c.slug}/`} data-continue hidden>
+          <span data-continue-text>Continue learning</span>
+        </a>
+        <a class="button wide" href={`/certificate/${c.slug}/`} data-cert-link hidden>
+          <Icon name="award" />View certificate
+        </a>
+        <p class="buy-note">{free ? 'No account and no card needed.' : 'Demo checkout: nothing is charged.'}</p>
+        <h2 class="buy-title">This course includes</h2>
+        <ul class="includes">
+          <li><Icon name="clock" />{minutes(totalMins(c))} of lessons</li>
+          <li><Icon name="lessons" />{lessons.length} lessons with notes</li>
+          <li><Icon name="quiz" />A final quiz</li>
+          <li><Icon name="award" />Certificate when you finish</li>
+          <li><Icon name="mobile" />Phone and laptop</li>
+        </ul>
+      </div>
+    </aside>
+
+    <div class="main">
+      <section class="learn-box" aria-labelledby="learn-title">
+        <h2 id="learn-title">What you will learn</h2>
+        <ul class="outcomes">
+          {c.outcomes.map((o: string) => <li><Icon name="check" />{o}</li>)}
+        </ul>
+      </section>
+
+      <section class="content" aria-labelledby="content-title">
+        <h2 id="content-title">Course content</h2>
+        <div class="content-bar">
+          <p class="num">{c.modules.length} sections · {lessons.length} lessons · {minutes(totalMins(c))} total</p>
+          <button class="link-button" type="button" data-expand>Expand all sections</button>
+        </div>
+        <div class="modules">
+          {
+            c.modules.map((m: any, i: number) => (
+              <details class="module" open={i === 0}>
+                <summary>
+                  <Icon name="down" />
+                  <span class="module-title">{m.title}</span>
+                  <span class="module-meta num">
+                    {m.lessons.length} lessons · {minutes(m.lessons.reduce((n: number, l: any) => n + l.mins, 0))}
+                  </span>
+                </summary>
+                <ol class="lessons">
+                  {m.lessons.map((l: any) => (
+                    <li class="lesson" data-lesson={l.id} data-preview={l.preview ? '1' : '0'}>
+                      <span class="lesson-icon">
+                        <Icon name={l.preview || free ? 'play' : 'lock'} class="lesson-state" />
+                        <Icon name="check" class="lesson-done" />
+                      </span>
+                      {l.preview || free ? <a href={`/learn/${c.slug}/#${l.id}`}>{l.title}</a> : <span>{l.title}</span>}
+                      {l.preview && !free && <span class="tag brand">Preview</span>}
+                      <span class="lesson-mins num">{l.mins} min</span>
+                    </li>
+                  ))}
+                </ol>
+              </details>
+            ))
+          }
+          <div class="module module-end">
+            <span class="end-row"><Icon name="quiz" />Final quiz: {c.quiz.length} questions, pass with 3</span>
+            <span class="end-row"><Icon name="award" />Certificate with your name</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="reqs" aria-labelledby="reqs-title">
+        <h2 id="reqs-title">Requirements</h2>
+        <ul>{c.requirements.map((r: string) => <li>{r}</li>)}</ul>
+      </section>
+
+      <section class="about" aria-labelledby="about-title">
+        <h2 id="about-title">Description</h2>
+        {c.description.map((p: string) => <p>{p}</p>)}
+      </section>
+
+      <section class="teacher" id="instructor" aria-labelledby="teacher-title">
+        <h2 id="teacher-title">Instructor</h2>
+        <div class="teacher-row">
+          <Avatar name={teacher.name} size={72} />
+          <div>
+            <p class="teacher-name">{teacher.name}</p>
+            <p class="teacher-role">{teacher.role}</p>
+          </div>
+        </div>
+        <p class="teacher-bio">{teacher.bio}</p>
+        {
+          teacherCourses.length > 1 && (
+            <p class="teacher-more">
+              Also teaches{' '}
+              {teacherCourses
+                .filter((x) => x.slug !== c.slug)
+                .map((x) => (
+                  <a href={`/course/${x.slug}/`}>{x.title}</a>
+                ))}
+              .
+            </p>
+          )
+        }
+      </section>
+
+      <section class="said" aria-labelledby="said-title">
+        <h2 id="said-title">Learner reviews</h2>
+        <div class="said-summary">
+          <span class="said-score num">{c.rating.toFixed(1)}</span>
+          <div>
+            <Stars rating={c.rating} />
+            <p class="num">{count(c.ratings)} ratings</p>
+          </div>
+        </div>
+        {
+          said.map((r) => (
+            <figure class="said-quote">
+              <Stars rating={r.stars} />
+              <blockquote>
+                <p>{r.text}</p>
+              </blockquote>
+              <figcaption>{r.name}. An example review written for this demo.</figcaption>
+            </figure>
+          ))
+        }
+      </section>
+    </div>
+  </div>
+
+  <section class="page more" aria-labelledby="more-title">
+    <h2 id="more-title">Learners also take</h2>
+    <ul class="more-grid">
+      {more.map((x, i) => <CourseCard course={x} index={i} />)}
+    </ul>
+  </section>
+
+  <div class="dock" data-dock aria-hidden="true">
+    <span class="dock-price">{free ? 'Free' : priceLabel(c)}</span>
+    <button class="button primary" type="button" tabindex="-1" data-dock-go>{free ? 'Start free course' : 'Buy now'}</button>
+  </div>
+</Base>
+
+<script>
+  import { courses } from '../../data/courses.js';
+  import { enrol, standing, doneIds } from '../../lib/learn.js';
+
+  const buy = document.querySelector<HTMLElement>('[data-buy]')!;
+  const slug = buy.dataset.slug!;
+  const course = courses.find((x) => x.slug === slug)!;
+  const free = buy.dataset.free === '1';
+  const start = buy.querySelector<HTMLButtonElement>('[data-start]');
+  const buyLink = buy.querySelector<HTMLAnchorElement>('[data-buy-link]');
+  const cont = buy.querySelector<HTMLAnchorElement>('[data-continue]')!;
+  const certLink = buy.querySelector<HTMLAnchorElement>('[data-cert-link]')!;
+  const progressBox = buy.querySelector<HTMLElement>('[data-buy-progress]')!;
+  const dockGo = document.querySelector<HTMLButtonElement>('[data-dock-go]')!;
+
+  function paint() {
+    const s = standing(course);
+    if (start) start.hidden = s.enrolled;
+    if (buyLink) buyLink.hidden = s.enrolled;
+    cont.hidden = !s.enrolled;
+    progressBox.hidden = !s.enrolled;
+    certLink.hidden = !s.certificate;
+    if (s.enrolled) {
+      const target = s.next ? s.next.id : s.quiz?.passed ? '' : 'quiz';
+      cont.href = `/learn/${slug}/${target ? `#${target}` : ''}`;
+      buy.querySelector('[data-continue-text]')!.textContent = s.finished === 0 ? 'Start learning' : s.next ? `Continue: lesson ${s.nextIndex}` : s.quiz?.passed ? 'Review the course' : 'Take the final quiz';
+      progressBox.querySelector<HTMLElement>('.bar')!.style.setProperty('--p', `${s.percent}%`);
+      progressBox.querySelector('.bar')!.classList.toggle('done', s.percent === 100);
+      progressBox.querySelector('[data-buy-progress-text]')!.textContent = `${s.finished} of ${s.total} lessons done`;
+    }
+    dockGo.textContent = s.enrolled ? (s.next ? 'Continue learning' : 'Open course') : free ? 'Start free course' : 'Buy now';
+    const done = new Set(doneIds(slug));
+    document.querySelectorAll<HTMLElement>('[data-lesson]').forEach((li) => li.classList.toggle('is-done', done.has(li.dataset.lesson!)));
+  }
+
+  start?.addEventListener('click', () => {
+    enrol(slug, { paid: false });
+    location.href = `/learn/${slug}/#l1`;
+  });
+
+  dockGo.addEventListener('click', () => {
+    if (standing(course).enrolled) location.href = cont.href;
+    else if (free) start!.click();
+    else location.href = buyLink!.href;
+  });
+
+  // Show the bottom bar on phones once the main card scrolls away.
+  const dock = document.querySelector<HTMLElement>('[data-dock]')!;
+  new IntersectionObserver(([e]) => {
+    const show = !e.isIntersecting && e.boundingClientRect.top < 0;
+    dock.classList.toggle('show', show);
+    dock.setAttribute('aria-hidden', String(!show));
+    dockGo.tabIndex = show ? 0 : -1;
+  }).observe(buy.querySelector('.buy-body')!);
+
+  const expand = document.querySelector<HTMLButtonElement>('[data-expand]')!;
+  expand.addEventListener('click', () => {
+    const all = [...document.querySelectorAll<HTMLDetailsElement>('.module[open], details.module')];
+    const open = all.some((d) => !d.open);
+    all.forEach((d) => (d.open = open));
+    expand.textContent = open ? 'Collapse all sections' : 'Expand all sections';
+  });
+
+  paint();
+  window.addEventListener('storage', paint);
+</script>
+
+<style>
+  .top {
+    background: var(--dark);
+    color: var(--on-dark);
+  }
+
+  .top-inner {
+    display: grid;
+    gap: var(--space-3);
+    justify-items: start;
+    padding-block: var(--space-6) var(--space-7);
+    padding-right: calc(340px + var(--space-7));
+  }
+
+  .crumbs {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--step--1);
+    font-weight: 700;
+  }
+
+  .crumbs a {
+    color: var(--on-dark-link);
+  }
+
+  .crumbs :global(.icon) {
+    width: 14px;
+    color: var(--on-dark-2);
+  }
+
+  .crumbs span {
+    color: var(--on-dark-2);
+  }
+
+  .top h1 {
+    font-size: var(--step-4);
+    max-width: 20ch;
+  }
+
+  .top-sub {
+    max-width: 58ch;
+    font-size: var(--step-1);
+    line-height: 1.45;
+    color: var(--on-dark-2);
+  }
+
+  .top-rating {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .top-rating :global(.top-stars) {
+    color: var(--on-dark-star);
+  }
+
+  .top-rating :global(.top-stars .count) {
+    color: var(--on-dark-link);
+  }
+
+  .top-rating :global(.off) {
+    color: #5f6776;
+  }
+
+  .top-by a {
+    color: var(--on-dark-link);
+  }
+
+  .top-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    font-size: var(--step--1);
+    color: var(--on-dark-2);
+  }
+
+  .top-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .top-meta :global(.icon) {
+    width: 18px;
+  }
+
+  .top-demo {
+    font-size: var(--step--2);
+    color: var(--on-dark-2);
+  }
+
+  .top :focus-visible {
+    outline-color: var(--on-dark-link);
+  }
+
+  .body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    grid-template-areas: 'main buy';
+    gap: var(--space-7);
+    align-items: start;
+  }
+
+  .main {
+    grid-area: main;
+    display: grid;
+    gap: var(--space-8);
+    padding-top: var(--space-7);
+  }
+
+  .main h2 {
+    font-size: var(--step-2);
+  }
+
+  .buy {
+    grid-area: buy;
+    position: sticky;
+    top: 88px;
+    margin-top: -260px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--white);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .buy-cover {
+    position: relative;
+    display: block;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .buy-cover::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgb(22 24 29 / 0) 40%, rgb(22 24 29 / 0.7));
+  }
+
+  .buy-preview {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: var(--space-3);
+    z-index: 1;
+    display: grid;
+    justify-items: center;
+    gap: var(--space-2);
+    font-weight: 700;
+  }
+
+  .buy-play {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--ink);
+    box-shadow: var(--shadow-lift);
+    transition: transform 200ms var(--ease-out);
+  }
+
+  .buy-play :global(.icon) {
+    width: 22px;
+    margin-left: 3px;
+  }
+
+  .buy-cover:hover .buy-play {
+    transform: scale(1.06);
+  }
+
+  .buy-cover:hover {
+    color: var(--white);
+  }
+
+  .buy-body {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-5);
+  }
+
+  .buy-price {
+    font-family: var(--font-head);
+    font-size: var(--step-3);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .buy-progress {
+    display: grid;
+    gap: var(--space-1);
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+
+  .buy-note {
+    font-size: var(--step--1);
+    color: var(--ink-3);
+    text-align: center;
+  }
+
+  .buy-title {
+    margin-top: var(--space-2);
+    font-family: var(--font);
+    font-size: var(--step-0);
+    font-weight: 700;
+  }
+
+  .includes {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--step--1);
+  }
+
+  .includes li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .includes :global(.icon) {
+    flex: none;
+    width: 20px;
+    color: var(--ink-2);
+  }
+
+  .learn-box {
+    display: grid;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+  }
+
+  .outcomes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3) var(--space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .outcomes li {
+    display: flex;
+    gap: var(--space-3);
+  }
+
+  .outcomes :global(.icon) {
+    flex: none;
+    width: 20px;
+    margin-top: 3px;
+    color: var(--free);
+    stroke-width: 2.4;
+  }
+
+  .content {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .content-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+
+  .link-button {
+    min-height: 40px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--brand);
+    font-weight: 700;
+  }
+
+  .link-button:hover {
+    color: var(--brand-deep);
+    text-decoration: underline;
+  }
+
+  .modules {
+    overflow: hidden;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+  }
+
+  .module + .module {
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .module summary {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: 58px;
+    padding: var(--space-3) var(--space-5);
+    background: var(--surface);
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .module summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .module summary:hover {
+    background: var(--surface-2);
+  }
+
+  .module summary :global(.icon) {
+    width: 20px;
+    transition: transform 200ms var(--ease-out);
+  }
+
+  .module:not([open]) summary :global(.icon) {
+    transform: rotate(-90deg);
+  }
+
+  .module-meta {
+    font-weight: 400;
+    font-size: var(--step--1);
+    color: var(--ink-3);
+  }
+
+  .lessons {
+    display: grid;
+    margin: 0;
+    padding: var(--space-2) 0;
+    list-style: none;
+  }
+
+  .lesson {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-5);
+    font-size: var(--step--1);
+  }
+
+  .lesson-icon {
+    display: grid;
+    width: 20px;
+  }
+
+  .lesson-icon :global(.icon) {
+    grid-area: 1 / 1;
+    width: 18px;
+    color: var(--ink-3);
+  }
+
+  .lesson-icon :global(.lesson-done) {
+    display: none;
+    width: 20px;
+    padding: 3px;
+    border-radius: 50%;
+    background: var(--free);
+    color: var(--white);
+    stroke-width: 3;
+  }
+
+  .lesson.is-done :global(.lesson-done) {
+    display: block;
+  }
+
+  .lesson.is-done :global(.lesson-state) {
+    display: none;
+  }
+
+  .lesson-mins {
+    color: var(--ink-3);
+  }
+
+  .module-end {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-5);
+    background: var(--surface);
+    font-weight: 600;
+    font-size: var(--step--1);
+  }
+
+  .end-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .end-row :global(.icon) {
+    width: 20px;
+    color: var(--brand);
+  }
+
+  .reqs ul {
+    display: grid;
+    gap: var(--space-2);
+    margin: var(--space-4) 0 0;
+    padding-left: 1.2em;
+  }
+
+  .about {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .about p {
+    max-width: 68ch;
+  }
+
+  .teacher {
+    display: grid;
+    gap: var(--space-4);
+    scroll-margin-top: 90px;
+  }
+
+  .teacher-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .teacher-name {
+    font-weight: 700;
+    font-size: var(--step-1);
+    color: var(--brand-deep);
+  }
+
+  .teacher-role {
+    color: var(--ink-2);
+  }
+
+  .teacher-bio {
+    max-width: 68ch;
+  }
+
+  .said {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .said-summary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .said-summary p {
+    font-size: var(--step--1);
+    color: var(--ink-3);
+  }
+
+  .said-score {
+    font-family: var(--font-head);
+    font-size: var(--step-4);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--star);
+  }
+
+  .said-quote {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: var(--space-5);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .said-quote blockquote {
+    margin: 0;
+  }
+
+  .said-quote figcaption {
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+
+  .more {
+    padding-top: var(--space-9);
+  }
+
+  .more h2 {
+    font-size: var(--step-2);
+  }
+
+  .more-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6) var(--space-5);
+    margin: var(--space-5) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .dock {
+    display: none;
+  }
+
+  @media (max-width: 1000px) {
+    .top-inner {
+      padding-right: 0;
+    }
+
+    .body {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'buy'
+        'main';
+      gap: 0;
+    }
+
+    .buy {
+      position: relative;
+      top: 0;
+      margin-top: var(--space-5);
+      max-width: 520px;
+    }
+
+    .dock {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 25;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding: var(--space-3) var(--space-4);
+      background: var(--white);
+      border-top: 1px solid var(--line);
+      box-shadow: 0 -8px 24px -16px rgb(22 24 29 / 0.4);
+      transform: translateY(110%);
+      transition: transform 240ms var(--ease-out);
+    }
+
+    .dock.show {
+      transform: none;
+    }
+
+    .dock-price {
+      font-family: var(--font-head);
+      font-size: var(--step-2);
+      font-weight: 700;
+    }
+
+    .more-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .outcomes {
+      grid-template-columns: 1fr;
+    }
+
+    .learn-box {
+      padding: var(--space-5);
+    }
+
+    .module summary {
+      grid-template-columns: auto 1fr;
+      padding-inline: var(--space-4);
+    }
+
+    .module-meta {
+      grid-column: 2;
+    }
+
+    .lesson {
+      grid-template-columns: auto 1fr auto;
+      padding-inline: var(--space-4);
+    }
+
+    .lesson :global(.tag) {
+      grid-column: 2;
+      justify-self: start;
+    }
+
+    .more-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,273 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Cover from '../components/Cover.astro';
+import { school, courses, instructors } from '../data/courses.js';
+import { lessonsOf } from '../lib/learn.js';
+---
+
+<Base title={`My learning | ${school.full}`} description="Your courses, progress and certificates, saved in this browser. A demo site." current="my">
+  <div class="page my">
+    <div class="head">
+      <h1>My learning</h1>
+      <p>Your courses and progress are saved in this browser only.</p>
+    </div>
+
+    <div class="empty" data-empty hidden>
+      <p class="empty-title">You have not started a course yet.</p>
+      <p>Three courses are free in full. Open one and you are in lesson one, no account needed.</p>
+      <div class="empty-actions">
+        <a class="button primary" href="/#free">Browse free courses</a>
+        <a class="button" href="/#courses">See all courses</a>
+      </div>
+    </div>
+
+    <ul class="list" data-list>
+      {
+        courses.map((c) => (
+          <li class="row" data-row={c.slug} hidden>
+            <a class="row-cover" href={`/course/${c.slug}/`} tabindex="-1" aria-hidden="true">
+              <Cover slug={c.slug} />
+            </a>
+            <div class="row-main">
+              <h2>
+                <a href={`/course/${c.slug}/`}>{c.title}</a>
+              </h2>
+              <p class="row-by">
+                {instructors[c.instructor as keyof typeof instructors].name} · {lessonsOf(c).length} lessons
+              </p>
+              <div class="bar">
+                <span />
+              </div>
+              <p class="row-state num" data-state />
+              <p class="row-next" data-next />
+            </div>
+            <div class="row-actions">
+              <a class="button primary" href={`/learn/${c.slug}/`} data-go>
+                Continue
+              </a>
+              <a class="button" href={`/certificate/${c.slug}/`} data-cert hidden>
+                <Icon name="award" />
+                Certificate
+              </a>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="clear-row" data-clear-row hidden>
+      <button class="clear" type="button" data-clear>Clear my demo progress from this browser</button>
+    </p>
+  </div>
+</Base>
+
+<script>
+  import { courses } from '../data/courses.js';
+  import { standing, writeStore, ENROL_KEY, PROGRESS_KEY, QUIZ_KEY, NAME_KEY } from '../lib/learn.js';
+
+  const empty = document.querySelector<HTMLElement>('[data-empty]')!;
+  const clearRow = document.querySelector<HTMLElement>('[data-clear-row]')!;
+  const clearBtn = document.querySelector<HTMLButtonElement>('[data-clear]')!;
+
+  function paint() {
+    let shown = 0;
+    for (const c of courses) {
+      const row = document.querySelector<HTMLElement>(`[data-row="${c.slug}"]`)!;
+      const s = standing(c);
+      row.hidden = !s.enrolled;
+      if (!s.enrolled) continue;
+      shown += 1;
+      const bar = row.querySelector<HTMLElement>('.bar')!;
+      bar.style.setProperty('--p', `${s.percent}%`);
+      bar.classList.toggle('done', s.percent === 100);
+      row.querySelector('[data-state]')!.textContent = `${s.finished} of ${s.total} lessons done${s.quiz ? `, best quiz score ${s.quiz.score} of ${s.quiz.total}` : ''}`;
+      const go = row.querySelector<HTMLAnchorElement>('[data-go]')!;
+      const next = row.querySelector<HTMLElement>('[data-next]')!;
+      if (s.next) {
+        go.href = `/learn/${c.slug}/#${s.next.id}`;
+        go.textContent = s.finished ? 'Continue' : 'Start';
+        next.textContent = `Next: lesson ${s.nextIndex}, ${s.next.title}`;
+      } else if (!s.quiz?.passed) {
+        go.href = `/learn/${c.slug}/#quiz`;
+        go.textContent = 'Take the quiz';
+        next.textContent = 'All lessons done. Pass the final quiz to get your certificate.';
+      } else {
+        go.href = `/learn/${c.slug}/`;
+        go.textContent = 'Review';
+        next.textContent = 'Completed. Your certificate is ready.';
+      }
+      go.setAttribute('aria-label', `${go.textContent}: ${c.title}`);
+      row.querySelector<HTMLElement>('[data-cert]')!.hidden = !s.certificate;
+    }
+    empty.hidden = shown > 0;
+    clearRow.hidden = shown === 0;
+  }
+
+  let armed = false;
+  clearBtn.addEventListener('click', () => {
+    if (!armed) {
+      armed = true;
+      clearBtn.textContent = 'Press again to clear all demo progress';
+      window.setTimeout(() => {
+        armed = false;
+        clearBtn.textContent = 'Clear my demo progress from this browser';
+      }, 4000);
+      return;
+    }
+    [ENROL_KEY, PROGRESS_KEY, QUIZ_KEY].forEach((k) => writeStore(k, {}));
+    writeStore(NAME_KEY, '');
+    armed = false;
+    clearBtn.textContent = 'Clear my demo progress from this browser';
+    window.dispatchEvent(new Event('tk:change'));
+    paint();
+    document.querySelector<HTMLElement>('[data-empty] a')!.focus();
+  });
+
+  paint();
+  window.addEventListener('storage', paint);
+</script>
+
+<style>
+  .my {
+    display: grid;
+    gap: var(--space-6);
+    padding-top: var(--space-7);
+  }
+
+  .head {
+    display: grid;
+    gap: var(--space-2);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .head h1 {
+    font-size: var(--step-4);
+  }
+
+  .head p {
+    color: var(--ink-3);
+  }
+
+  .empty {
+    display: grid;
+    gap: var(--space-3);
+    justify-items: start;
+    max-width: 44rem;
+    padding-block: var(--space-5);
+  }
+
+  .empty-title {
+    font-family: var(--font-head);
+    font-size: var(--step-3);
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  .empty-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+
+  .list {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr) auto;
+    gap: var(--space-5);
+    align-items: center;
+    padding: var(--space-4);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .row-cover :global(.cover) {
+    border-radius: var(--radius-s);
+  }
+
+  .row-main {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .row h2 {
+    font-family: var(--font);
+    font-size: var(--step-1);
+  }
+
+  .row h2 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .row h2 a:hover {
+    color: var(--brand-deep);
+    text-decoration: underline;
+  }
+
+  .row-by,
+  .row-state {
+    font-size: var(--step--1);
+    color: var(--ink-3);
+  }
+
+  .row-next {
+    font-weight: 600;
+  }
+
+  .row-actions {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .clear-row {
+    padding-top: var(--space-2);
+  }
+
+  .clear {
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ink-2);
+    font-size: var(--step--1);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  @media (max-width: 800px) {
+    .row {
+      grid-template-columns: 140px minmax(0, 1fr);
+    }
+
+    .row-actions {
+      grid-column: 1 / -1;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .row-actions .button:only-child,
+    .row-actions .button:first-child:nth-last-child(2):has(+ [hidden]) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .row {
+      grid-template-columns: 1fr;
+    }
+
+    .row-cover {
+      display: none;
+    }
+  }
+</style>

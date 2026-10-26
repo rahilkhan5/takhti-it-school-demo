@@ -1,0 +1,38 @@
+---
+// The rating, its stars and how many people rated. Ratings are made up for the demo.
+import Icon from './Icon.astro';
+import { count } from '../lib/learn.js';
+
+interface Props {
+  rating: number;
+  ratings?: number;
+  class?: string;
+}
+const { rating, ratings, class: className } = Astro.props;
+const full = Math.round(rating);
+---
+
+<span class:list={['stars', className]}>
+  <span class="value num">{rating.toFixed(1)}</span>
+  <span class="row" aria-hidden="true">
+    {Array.from({ length: 5 }).map((_, i) => <Icon name="star" class={i < full ? 'on' : 'off'} />)}
+  </span>
+  <span class="visually-hidden">out of 5</span>
+  {ratings && <span class="count num">({count(ratings)} ratings)</span>}
+</span>
+
+<style>
+  .row {
+    display: inline-flex;
+    gap: 1px;
+  }
+
+  .row :global(.off) {
+    color: var(--line-strong);
+  }
+
+  .count {
+    color: var(--ink-3);
+    font-weight: 400;
+  }
+</style>

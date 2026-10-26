@@ -1,0 +1,1102 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Cover from '../components/Cover.astro';
+import CourseCard from '../components/CourseCard.astro';
+import Avatar from '../components/Avatar.astro';
+import Stars from '../components/Stars.astro';
+import { school, courses, instructors, reviews, faqs, CATEGORIES, LEVELS } from '../data/courses.js';
+
+const freeCount = courses.filter((c) => !c.price).length;
+// The catalogue starts in the order its sort control names: most popular first.
+const popular = [...courses].sort((a, b) => b.learners - a.learners);
+const topics = ['Python', 'MS Office', 'Freelancing', 'Web design'];
+const titles = Object.fromEntries(courses.map((c) => [c.slug, c.title]));
+const teaching = Object.fromEntries(Object.keys(instructors).map((k) => [k, courses.filter((c) => c.instructor === k)]));
+---
+
+<Base title={`${school.full}: computer and IT courses online`} description="Short, practical computer and IT courses: MS Office, Excel, web design, Python, graphic design and freelancing. Three courses are free. A demo site.">
+  <section class="hero page" aria-labelledby="hero-title">
+    <div class="hero-words">
+      <h1 id="hero-title">Learn computer and IT skills that get you hired</h1>
+      <p class="hero-sub">Short, practical courses in simple English with Urdu help. Study on your phone, pick up where you stopped, and finish with a certificate.</p>
+      <form class="hero-search" role="search" data-hero-search>
+        <label class="visually-hidden" for="hero-q">What do you want to learn?</label>
+        <Icon name="search" />
+        <input id="hero-q" name="q" type="search" placeholder="What do you want to learn?" autocomplete="off" />
+        <button class="button primary" type="submit">Search</button>
+      </form>
+      <div class="topics">
+        <span class="topics-label">Popular:</span>
+        {
+          topics.map((t) => (
+            <button class="topic" type="button" data-topic={t}>
+              {t}
+            </button>
+          ))
+        }
+      </div>
+      <p class="hero-free">
+        <Icon name="check" />
+        {freeCount} courses are free. No sign up.
+      </p>
+    </div>
+
+    <div class="hero-proof" aria-hidden="true">
+      <div class="proof-back">
+        <Cover slug="python" />
+      </div>
+      <div class="proof-card">
+        <Cover slug="html-css" class="proof-cover" />
+        <div class="proof-body">
+          <b class="proof-title">Web Design with HTML and CSS</b>
+          <span class="proof-lesson">Lesson 4 of 9: Boxes, margin and padding</span>
+          <div class="bar" style="--p: 33%"><span></span></div>
+          <span class="proof-row">
+            <span class="num">3 of 9 lessons done</span>
+            <span class="proof-go">
+              <Icon name="play" />
+              Continue
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="proof-chip">
+        <Icon name="award" />
+        Quiz passed, 4 of 4
+      </div>
+    </div>
+  </section>
+
+  <section class="facts" aria-label="What you get">
+    <div class="page facts-row">
+      <p><Icon name="mobile" />Lessons light enough for mobile data</p>
+      <p><Icon name="card" />Pay with JazzCash, Easypaisa or card</p>
+      <p><Icon name="award" />A certificate when you finish</p>
+    </div>
+  </section>
+
+  <section class="catalog page" id="courses" aria-labelledby="courses-title">
+    <span id="free" class="anchor"></span>
+    <div class="catalog-head">
+      <h2 id="courses-title">Courses</h2>
+      <p>Every course shows its full syllabus, hours and price before you start.</p>
+    </div>
+
+    <div class="toolbar">
+      <div class="seg" role="group" aria-label="Price">
+        <button type="button" aria-pressed="true" data-price-filter="all">All</button>
+        <button type="button" aria-pressed="false" data-price-filter="free">Free</button>
+        <button type="button" aria-pressed="false" data-price-filter="paid">Paid</button>
+      </div>
+      <label class="tool">
+        <span class="visually-hidden">Search courses</span>
+        <Icon name="search" />
+        <input type="search" placeholder="Search courses" data-search autocomplete="off" />
+      </label>
+      <label class="tool select">
+        <span class="visually-hidden">Topic</span>
+        <select data-filter-category>
+          <option value="">All topics</option>
+          {Object.entries(CATEGORIES).map(([k, v]) => <option value={k}>{v}</option>)}
+        </select>
+      </label>
+      <label class="tool select">
+        <span class="visually-hidden">Level</span>
+        <select data-filter-level>
+          <option value="">All levels</option>
+          {LEVELS.map((l) => <option value={l}>{l}</option>)}
+        </select>
+      </label>
+      <label class="tool select">
+        <span class="visually-hidden">Sort</span>
+        <select data-sort>
+          <option value="popular">Most popular</option>
+          <option value="rating">Highest rated</option>
+          <option value="price">Price, low to high</option>
+        </select>
+      </label>
+    </div>
+    <p class="result" aria-live="polite" data-result>Showing all {courses.length} courses.</p>
+
+    <ul class="grid" data-grid>
+      {popular.map((c) => <CourseCard course={c} index={courses.indexOf(c)} />)}
+    </ul>
+    <div class="empty" data-empty hidden>
+      <p class="empty-title">No course matches that yet.</p>
+      <p>Try another word, or clear the filters to see all {courses.length} courses.</p>
+      <button class="button" type="button" data-clear>Clear filters</button>
+    </div>
+  </section>
+
+  <section class="how" aria-labelledby="how-title">
+    <div class="page">
+      <h2 id="how-title">From first lesson to certificate</h2>
+      <ol class="steps">
+        <li class="step">
+          <span class="step-n num">1</span>
+          <h3>Start in one tap</h3>
+          <p>Free courses open straight away. Paid courses take JazzCash, Easypaisa or card, and every course has free preview lessons.</p>
+          <div class="frag frag-start" aria-hidden="true">
+            <div class="frag-row">
+              <span class="tag free">Free</span>
+              <b>Web Design with HTML and CSS</b>
+            </div>
+            <span class="frag-btn">Start free course</span>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-n num">2</span>
+          <h3>Learn at your own pace</h3>
+          <p>Short lessons with notes and key points. Close the app at night and the next lesson is waiting tomorrow.</p>
+          <ul class="frag frag-list" aria-hidden="true">
+            <li class="is-done"><Icon name="check" />How websites work</li>
+            <li class="is-done"><Icon name="check" />Your first HTML file</li>
+            <li class="is-now"><Icon name="play" />Headings, paragraphs and links</li>
+          </ul>
+        </li>
+        <li class="step">
+          <span class="step-n num">3</span>
+          <h3>Pass the quiz, get the certificate</h3>
+          <p>Answer 3 of 4 questions right in the final quiz to unlock a certificate with your name on it.</p>
+          <div class="frag frag-cert" aria-hidden="true">
+            <span class="cert-school">{school.full}</span>
+            <span class="cert-name">Sana Khan</span>
+            <span class="cert-course">Web Design with HTML and CSS</span>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="teachers page" aria-labelledby="teachers-title">
+    <h2 id="teachers-title">Learn from people who do the work</h2>
+    <ul class="teacher-list">
+      {
+        Object.entries(instructors).map(([k, t]) => (
+          <li class="teacher">
+            <Avatar name={t.name} size={56} />
+            <div>
+              <p class="teacher-name">{t.name}</p>
+              <p class="teacher-role">{t.role}</p>
+              <p class="teacher-courses">
+                {teaching[k].map((c, i) => (
+                  <>
+                    {i > 0 && ', '}
+                    <a href={`/course/${c.slug}/`}>{c.title}</a>
+                  </>
+                ))}
+              </p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="voices page" aria-labelledby="voices-title">
+    <div class="voices-head">
+      <h2 id="voices-title">What learners say</h2>
+      <p>Example reviews written for this demo.</p>
+    </div>
+    <ul class="quotes">
+      {
+        reviews.map((r) => (
+          <li>
+            <figure class="quote">
+              <Stars rating={r.stars} />
+              <blockquote>
+                <p>{r.text}</p>
+              </blockquote>
+              <figcaption>
+                <span>{r.name}</span>
+                <a href={`/course/${r.slug}/`}>{titles[r.slug]}</a>
+              </figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="faq page" id="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">Questions</h2>
+    <div class="faq-list">
+      {
+        faqs.map((f) => (
+          <details>
+            <summary>
+              {f.q}
+              <Icon name="down" />
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="close page" aria-labelledby="close-title">
+    <div class="close-box">
+      <div>
+        <h2 id="close-title">Start learning tonight</h2>
+        <p>{freeCount} courses are free in full. Open one and you are in lesson one.</p>
+      </div>
+      <div class="close-actions">
+        <a class="button primary" href="#free" data-go-free>Browse free courses</a>
+        <a class="button" href="#courses">See all courses</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { courses } from '../data/courses.js';
+  import { standing } from '../lib/learn.js';
+
+  const bySlug = Object.fromEntries(courses.map((c) => [c.slug, c]));
+  const grid = document.querySelector<HTMLElement>('[data-grid]')!;
+  const cards = [...grid.querySelectorAll<HTMLElement>('[data-course]')];
+  const segs = [...document.querySelectorAll<HTMLButtonElement>('[data-price-filter]')];
+  const search = document.querySelector<HTMLInputElement>('[data-search]')!;
+  const category = document.querySelector<HTMLSelectElement>('[data-filter-category]')!;
+  const level = document.querySelector<HTMLSelectElement>('[data-filter-level]')!;
+  const sort = document.querySelector<HTMLSelectElement>('[data-sort]')!;
+  const result = document.querySelector<HTMLElement>('[data-result]')!;
+  const empty = document.querySelector<HTMLElement>('[data-empty]')!;
+  const catalog = document.querySelector<HTMLElement>('#courses')!;
+
+  let price = 'all';
+
+  function apply() {
+    const words = search.value.toLowerCase().split(/\s+/).filter(Boolean);
+    let shown = 0;
+    for (const card of cards) {
+      const ok =
+        (price === 'all' || (price === 'free') === (card.dataset.free === '1')) &&
+        (!category.value || card.dataset.category === category.value) &&
+        (!level.value || card.dataset.level === level.value) &&
+        words.every((w) => card.dataset.words!.includes(w));
+      card.hidden = !ok;
+      if (ok) shown += 1;
+    }
+    const key = sort.value;
+    cards
+      .slice()
+      .sort((a, b) => {
+        if (key === 'rating') return Number(b.dataset.rating) - Number(a.dataset.rating);
+        if (key === 'price') return Number(a.dataset.price) - Number(b.dataset.price) || Number(a.dataset.order) - Number(b.dataset.order);
+        return Number(b.dataset.learners) - Number(a.dataset.learners);
+      })
+      .forEach((c) => grid.append(c));
+    empty.hidden = shown > 0;
+    const parts = [price === 'free' && 'free', price === 'paid' && 'paid'].filter(Boolean);
+    const what = `${parts.length ? `${parts[0]} ` : ''}${shown === 1 ? 'course' : 'courses'}`;
+    result.textContent = shown === cards.length ? `Showing all ${cards.length} courses.` : `Showing ${shown} ${what}${words.length ? ` for “${search.value.trim()}”` : ''}.`;
+  }
+
+  function setPrice(value: string) {
+    price = value;
+    segs.forEach((s) => s.setAttribute('aria-pressed', String(s.dataset.priceFilter === value)));
+    apply();
+  }
+
+  segs.forEach((s) => s.addEventListener('click', () => setPrice(s.dataset.priceFilter!)));
+  [category, level, sort].forEach((el) => el.addEventListener('change', apply));
+  search.addEventListener('input', apply);
+  document.querySelector('[data-clear]')!.addEventListener('click', () => {
+    search.value = '';
+    category.value = '';
+    level.value = '';
+    setPrice('all');
+    search.focus();
+  });
+
+  // The hero search and the popular topics fill the catalogue search.
+  function searchFor(q: string) {
+    search.value = q;
+    setPrice('all');
+    catalog.scrollIntoView({ block: 'start' });
+  }
+  document.querySelector<HTMLFormElement>('[data-hero-search]')!.addEventListener('submit', (e) => {
+    e.preventDefault();
+    searchFor((document.querySelector<HTMLInputElement>('#hero-q')!).value.trim());
+  });
+  document.querySelectorAll<HTMLButtonElement>('[data-topic]').forEach((b) => b.addEventListener('click', () => searchFor(b.dataset.topic!)));
+
+  // Links to #free and searches from the header arrive here.
+  function fromUrl() {
+    const q = new URLSearchParams(location.search).get('q');
+    if (q) {
+      search.value = q;
+      (document.querySelector<HTMLInputElement>('#hero-q')!).value = q;
+      apply();
+      catalog.scrollIntoView({ block: 'start' });
+    }
+    if (location.hash === '#free') setPrice('free');
+  }
+  // The Free courses link shows every free course, so earlier filters are cleared.
+  window.addEventListener('hashchange', () => {
+    if (location.hash !== '#free') return;
+    search.value = '';
+    category.value = '';
+    level.value = '';
+    setPrice('free');
+  });
+  fromUrl();
+
+  // Courses this browser is enrolled in show their progress on the card.
+  function progress() {
+    for (const card of cards) {
+      const s = standing(bySlug[card.dataset.course!]);
+      const box = card.querySelector<HTMLElement>('[data-progress]')!;
+      box.hidden = !s.enrolled;
+      if (!s.enrolled) continue;
+      box.querySelector<HTMLElement>('.bar')!.style.setProperty('--p', `${s.percent}%`);
+      box.querySelector('.bar')!.classList.toggle('done', s.percent === 100);
+      box.querySelector('[data-progress-text]')!.textContent = s.certificate ? 'Completed, certificate ready' : `${s.percent}% complete`;
+    }
+  }
+  progress();
+  window.addEventListener('storage', progress);
+</script>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: var(--space-8);
+    align-items: center;
+    padding-block: var(--space-8) var(--space-8);
+  }
+
+  .hero-words {
+    display: grid;
+    gap: var(--space-5);
+    justify-items: start;
+  }
+
+  .hero h1 {
+    font-size: var(--step-4);
+    letter-spacing: -0.02em;
+    max-width: 15ch;
+  }
+
+  .hero-sub {
+    max-width: 46ch;
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  .hero-search {
+    position: relative;
+    display: flex;
+    gap: var(--space-2);
+    width: min(560px, 100%);
+    padding: var(--space-2);
+    border: 1.5px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--white);
+    box-shadow: var(--shadow);
+  }
+
+  .hero-search:focus-within {
+    border-color: var(--brand);
+  }
+
+  .hero-search :global(.icon) {
+    flex: none;
+    align-self: center;
+    width: 22px;
+    margin-left: var(--space-3);
+    color: var(--ink-3);
+  }
+
+  .hero-search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    font-size: var(--step-0);
+  }
+
+  .hero-search input:focus-visible {
+    outline: none;
+  }
+
+  .hero-search input::placeholder {
+    color: #6b7280;
+  }
+
+  .hero-search .button {
+    border-radius: 999px;
+  }
+
+  .topics {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .topics-label {
+    font-size: var(--step--1);
+    color: var(--ink-3);
+  }
+
+  .topic {
+    min-height: 40px;
+    padding: 0 var(--space-4);
+    border: 1.5px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--white);
+    font-size: var(--step--1);
+    font-weight: 600;
+    transition: border-color 160ms ease, background-color 160ms ease;
+  }
+
+  .topic:hover {
+    border-color: var(--ink-3);
+    background: var(--surface);
+  }
+
+  .hero-free {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 600;
+    color: var(--free);
+  }
+
+  .hero-free :global(.icon) {
+    width: 20px;
+    stroke-width: 2.4;
+  }
+
+  .hero-proof {
+    position: relative;
+    min-height: 460px;
+  }
+
+  .proof-back {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 64%;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--white);
+    box-shadow: var(--shadow);
+    transform: rotate(2.5deg);
+  }
+
+  .proof-card {
+    position: absolute;
+    left: 0;
+    bottom: 24px;
+    display: grid;
+    grid-template-columns: 42% 1fr;
+    width: 92%;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--white);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .proof-card :global(.proof-cover) {
+    aspect-ratio: auto;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .proof-body {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .proof-title {
+    font-family: var(--font-head);
+    font-size: var(--step-1);
+    line-height: 1.2;
+  }
+
+  .proof-lesson {
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+
+  .proof-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    font-size: var(--step--2);
+    color: var(--ink-3);
+  }
+
+  .proof-go {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-s);
+    background: var(--brand);
+    color: var(--white);
+    font-size: var(--step--1);
+    font-weight: 700;
+  }
+
+  .proof-go :global(.icon) {
+    width: 14px;
+  }
+
+  .proof-chip {
+    position: absolute;
+    right: 6%;
+    bottom: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border-radius: 999px;
+    background: var(--dark);
+    color: var(--white);
+    font-size: var(--step--1);
+    font-weight: 700;
+    box-shadow: var(--shadow-lift);
+  }
+
+  .proof-chip :global(.icon) {
+    width: 18px;
+    color: var(--on-dark-free);
+  }
+
+  .facts {
+    border-block: 1px solid var(--line);
+    background: var(--surface);
+  }
+
+  .facts-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-3) var(--space-6);
+    padding-block: var(--space-4);
+  }
+
+  .facts p {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+
+  .facts :global(.icon) {
+    width: 22px;
+    color: var(--brand);
+  }
+
+  .catalog {
+    position: relative;
+    padding-top: var(--space-8);
+    scroll-margin-top: 72px;
+  }
+
+  .anchor {
+    position: absolute;
+    top: 0;
+  }
+
+  .catalog-head {
+    display: grid;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+
+  .catalog-head p {
+    color: var(--ink-2);
+  }
+
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .seg {
+    display: inline-flex;
+    padding: 3px;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 999px;
+  }
+
+  .seg button {
+    min-height: 40px;
+    padding: 0 var(--space-4);
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    font-weight: 700;
+    color: var(--ink-2);
+    transition: background-color 160ms ease, color 160ms ease;
+  }
+
+  .seg button[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--white);
+  }
+
+  .tool {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .tool :global(.icon) {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    width: 18px;
+    color: var(--ink-3);
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .tool input,
+  .tool select {
+    min-height: 46px;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--white);
+    font-size: var(--step--1);
+  }
+
+  .tool input {
+    width: 15rem;
+    padding: 0 var(--space-4) 0 38px;
+  }
+
+  .tool select {
+    padding: 0 2.25rem 0 var(--space-4);
+    background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%23474e5c' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") right 12px center / 16px no-repeat;
+    appearance: none;
+    font-weight: 600;
+  }
+
+  .tool input:focus-visible,
+  .tool select:focus-visible {
+    border-color: var(--brand);
+    outline-offset: 0;
+  }
+
+  .result {
+    margin-block: var(--space-4) var(--space-5);
+    font-size: var(--step--1);
+    color: var(--ink-3);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-7) var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .empty {
+    display: grid;
+    gap: var(--space-3);
+    justify-items: start;
+    padding: var(--space-6);
+    border: 1.5px dashed var(--line-strong);
+    border-radius: var(--radius);
+  }
+
+  .empty-title {
+    font-family: var(--font-head);
+    font-size: var(--step-2);
+    font-weight: 700;
+  }
+
+  .how {
+    margin-top: var(--space-9);
+    padding-block: var(--space-8);
+    background: var(--surface);
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-7);
+    margin: var(--space-6) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .step {
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: var(--space-3);
+  }
+
+  .step-n {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--brand);
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .step p {
+    color: var(--ink-2);
+  }
+
+  .frag {
+    margin: var(--space-3) 0 0;
+    padding: var(--space-4);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--white);
+    box-shadow: var(--shadow);
+  }
+
+  .frag-start {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .frag-row {
+    display: grid;
+    gap: var(--space-2);
+    justify-items: start;
+  }
+
+  .frag-btn {
+    display: grid;
+    place-items: center;
+    min-height: 42px;
+    border-radius: var(--radius-s);
+    background: var(--brand);
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .frag-list {
+    display: grid;
+    gap: var(--space-1);
+    list-style: none;
+  }
+
+  .frag-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2);
+    border-radius: var(--radius-s);
+    font-size: var(--step--1);
+  }
+
+  .frag-list :global(.icon) {
+    flex: none;
+    width: 20px;
+    padding: 3px;
+    border-radius: 50%;
+  }
+
+  .frag-list .is-done :global(.icon) {
+    background: var(--free);
+    color: var(--white);
+    stroke-width: 3;
+  }
+
+  .frag-list .is-now {
+    background: var(--brand-soft);
+    font-weight: 700;
+  }
+
+  .frag-list .is-now :global(.icon) {
+    color: var(--brand);
+  }
+
+  .frag-cert {
+    display: grid;
+    gap: var(--space-1);
+    justify-items: center;
+    padding: var(--space-5) var(--space-4);
+    border: 6px double var(--line-strong);
+    text-align: center;
+  }
+
+  .cert-school {
+    font-size: var(--step--2);
+    font-weight: 700;
+    color: var(--brand-deep);
+  }
+
+  .cert-name {
+    font-family: var(--font-head);
+    font-size: var(--step-2);
+    font-style: italic;
+  }
+
+  .cert-course {
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+
+  .teachers {
+    padding-top: var(--space-9);
+  }
+
+  .teacher-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+    gap: var(--space-5) var(--space-6);
+    margin: var(--space-6) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .teacher {
+    display: flex;
+    gap: var(--space-4);
+    align-items: start;
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--line);
+  }
+
+  .teacher-name {
+    font-weight: 700;
+    font-size: var(--step-1);
+  }
+
+  .teacher-role {
+    color: var(--ink-2);
+  }
+
+  .teacher-courses {
+    margin-top: var(--space-1);
+    font-size: var(--step--1);
+  }
+
+  .voices {
+    padding-top: var(--space-9);
+  }
+
+  .voices-head {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .voices-head p {
+    color: var(--ink-3);
+  }
+
+  .quotes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-5);
+    margin: var(--space-6) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .quote {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: var(--space-3);
+    height: 100%;
+    margin: 0;
+    padding: var(--space-5);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .quote blockquote {
+    margin: 0;
+    font-size: var(--step-0);
+    line-height: 1.55;
+  }
+
+  .quote figcaption {
+    display: grid;
+    gap: 2px;
+    font-size: var(--step--1);
+  }
+
+  .quote figcaption span {
+    font-weight: 700;
+  }
+
+  .faq {
+    padding-top: var(--space-9);
+    scroll-margin-top: 72px;
+  }
+
+  .faq-list {
+    max-width: 860px;
+    margin-top: var(--space-5);
+    border-top: 1px solid var(--line);
+  }
+
+  .faq details {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .faq summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 60px;
+    padding-block: var(--space-3);
+    font-weight: 700;
+    font-size: var(--step-1);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq summary :global(.icon) {
+    flex: none;
+    width: 22px;
+    color: var(--ink-3);
+    transition: transform 200ms var(--ease-out);
+  }
+
+  .faq details[open] summary :global(.icon) {
+    transform: rotate(180deg);
+  }
+
+  .faq details p {
+    max-width: 65ch;
+    padding-bottom: var(--space-5);
+    color: var(--ink-2);
+  }
+
+  .close {
+    padding-top: var(--space-9);
+  }
+
+  .close-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    padding: var(--space-7);
+    border-radius: var(--radius-l);
+    background: var(--brand-soft);
+  }
+
+  .close-box p {
+    margin-top: var(--space-2);
+    font-size: var(--step-1);
+    color: var(--ink-2);
+  }
+
+  .close-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  @media (max-width: 1080px) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .quotes {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      gap: var(--space-7);
+      padding-block: var(--space-6) var(--space-7);
+    }
+
+    .hero-proof {
+      min-height: 0;
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .proof-back {
+      display: none;
+    }
+
+    .proof-card,
+    .proof-chip {
+      position: relative;
+      inset: auto;
+      width: 100%;
+    }
+
+    .proof-chip {
+      width: auto;
+      justify-self: start;
+    }
+
+    .steps {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .tool input {
+      width: 100%;
+    }
+
+    .toolbar .tool:has(input) {
+      flex: 1 1 100%;
+      order: -1;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .grid,
+    .quotes {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-search .button {
+      padding-inline: var(--space-4);
+    }
+
+    .proof-card {
+      grid-template-columns: 1fr;
+    }
+
+    .proof-card :global(.proof-cover) {
+      aspect-ratio: 16 / 9;
+      height: auto;
+    }
+
+    .close-box {
+      padding: var(--space-6) var(--space-5);
+    }
+
+    .toolbar .tool.select {
+      flex: 1 1 40%;
+    }
+
+    .tool select {
+      width: 100%;
+    }
+  }
+</style>

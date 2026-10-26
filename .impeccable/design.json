@@ -1,0 +1,580 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-26T03:45:30.991Z",
+  "title": "Design System: Takhti IT School",
+  "extensions": {
+    "colorMeta": {
+      "brand-blue": {
+        "role": "primary",
+        "displayName": "Takhti Blue",
+        "canonical": "oklch(50% 0.2 265)",
+        "tonalRamp": [
+          "oklch(15% 0.16 265)",
+          "oklch(25% 0.16 265)",
+          "oklch(35% 0.16 265)",
+          "oklch(45% 0.16 265)",
+          "oklch(55% 0.16 265)",
+          "oklch(65% 0.16 265)",
+          "oklch(80% 0.16 265)",
+          "oklch(95% 0.16 265)"
+        ]
+      },
+      "brand-blue-deep": {
+        "role": "primary",
+        "displayName": "Takhti Blue Deep",
+        "canonical": "oklch(42% 0.18 265)",
+        "tonalRamp": [
+          "oklch(15% 0.15 265)",
+          "oklch(25% 0.15 265)",
+          "oklch(35% 0.15 265)",
+          "oklch(45% 0.15 265)",
+          "oklch(55% 0.15 265)",
+          "oklch(65% 0.15 265)",
+          "oklch(80% 0.15 265)",
+          "oklch(95% 0.15 265)"
+        ]
+      },
+      "brand-wash": {
+        "role": "primary",
+        "displayName": "Blue Wash",
+        "canonical": "oklch(95.5% 0.02 265)",
+        "tonalRamp": [
+          "oklch(15% 0.03 265)",
+          "oklch(25% 0.03 265)",
+          "oklch(35% 0.03 265)",
+          "oklch(45% 0.03 265)",
+          "oklch(55% 0.03 265)",
+          "oklch(65% 0.03 265)",
+          "oklch(80% 0.03 265)",
+          "oklch(95% 0.03 265)"
+        ]
+      },
+      "free-green": {
+        "role": "secondary",
+        "displayName": "Free Green",
+        "canonical": "oklch(52% 0.11 163)",
+        "tonalRamp": [
+          "oklch(15% 0.1 163)",
+          "oklch(25% 0.1 163)",
+          "oklch(35% 0.1 163)",
+          "oklch(45% 0.1 163)",
+          "oklch(55% 0.1 163)",
+          "oklch(65% 0.1 163)",
+          "oklch(80% 0.1 163)",
+          "oklch(95% 0.1 163)"
+        ]
+      },
+      "free-wash": {
+        "role": "secondary",
+        "displayName": "Free Wash",
+        "canonical": "oklch(95% 0.025 160)",
+        "tonalRamp": [
+          "oklch(15% 0.03 160)",
+          "oklch(25% 0.03 160)",
+          "oklch(35% 0.03 160)",
+          "oklch(45% 0.03 160)",
+          "oklch(55% 0.03 160)",
+          "oklch(65% 0.03 160)",
+          "oklch(80% 0.03 160)",
+          "oklch(95% 0.03 160)"
+        ]
+      },
+      "star-amber": {
+        "role": "tertiary",
+        "displayName": "Star Amber",
+        "canonical": "oklch(52% 0.12 63)",
+        "tonalRamp": [
+          "oklch(15% 0.11 63)",
+          "oklch(25% 0.11 63)",
+          "oklch(35% 0.11 63)",
+          "oklch(45% 0.11 63)",
+          "oklch(55% 0.11 63)",
+          "oklch(65% 0.11 63)",
+          "oklch(80% 0.11 63)",
+          "oklch(95% 0.11 63)"
+        ]
+      },
+      "page-white": {
+        "role": "neutral",
+        "displayName": "Page White",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0 265)",
+          "oklch(25% 0 265)",
+          "oklch(35% 0 265)",
+          "oklch(45% 0 265)",
+          "oklch(55% 0 265)",
+          "oklch(65% 0 265)",
+          "oklch(80% 0 265)",
+          "oklch(95% 0 265)"
+        ]
+      },
+      "cool-surface": {
+        "role": "neutral",
+        "displayName": "Cool Surface",
+        "canonical": "oklch(97.5% 0.003 265)",
+        "tonalRamp": [
+          "oklch(15% 0.004 265)",
+          "oklch(25% 0.004 265)",
+          "oklch(35% 0.004 265)",
+          "oklch(45% 0.004 265)",
+          "oklch(55% 0.004 265)",
+          "oklch(65% 0.004 265)",
+          "oklch(80% 0.004 265)",
+          "oklch(95% 0.004 265)"
+        ]
+      },
+      "surface-deep": {
+        "role": "neutral",
+        "displayName": "Surface Deep",
+        "canonical": "oklch(95% 0.006 260)",
+        "tonalRamp": [
+          "oklch(15% 0.006 260)",
+          "oklch(25% 0.006 260)",
+          "oklch(35% 0.006 260)",
+          "oklch(45% 0.006 260)",
+          "oklch(55% 0.006 260)",
+          "oklch(65% 0.006 260)",
+          "oklch(80% 0.006 260)",
+          "oklch(95% 0.006 260)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(21% 0.01 265)",
+        "tonalRamp": [
+          "oklch(15% 0.01 265)",
+          "oklch(25% 0.01 265)",
+          "oklch(35% 0.01 265)",
+          "oklch(45% 0.01 265)",
+          "oklch(55% 0.01 265)",
+          "oklch(65% 0.01 265)",
+          "oklch(80% 0.01 265)",
+          "oklch(95% 0.01 265)"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Ink Soft",
+        "canonical": "oklch(42% 0.025 265)",
+        "tonalRamp": [
+          "oklch(15% 0.025 265)",
+          "oklch(25% 0.025 265)",
+          "oklch(35% 0.025 265)",
+          "oklch(45% 0.025 265)",
+          "oklch(55% 0.025 265)",
+          "oklch(65% 0.025 265)",
+          "oklch(80% 0.025 265)",
+          "oklch(95% 0.025 265)"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Ink Muted",
+        "canonical": "oklch(51% 0.025 265)",
+        "tonalRamp": [
+          "oklch(15% 0.025 265)",
+          "oklch(25% 0.025 265)",
+          "oklch(35% 0.025 265)",
+          "oklch(45% 0.025 265)",
+          "oklch(55% 0.025 265)",
+          "oklch(65% 0.025 265)",
+          "oklch(80% 0.025 265)",
+          "oklch(95% 0.025 265)"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(90.5% 0.008 260)",
+        "tonalRamp": [
+          "oklch(15% 0.008 260)",
+          "oklch(25% 0.008 260)",
+          "oklch(35% 0.008 260)",
+          "oklch(45% 0.008 260)",
+          "oklch(55% 0.008 260)",
+          "oklch(65% 0.008 260)",
+          "oklch(80% 0.008 260)",
+          "oklch(95% 0.008 260)"
+        ]
+      },
+      "rule-strong": {
+        "role": "neutral",
+        "displayName": "Rule Strong",
+        "canonical": "oklch(83% 0.015 260)",
+        "tonalRamp": [
+          "oklch(15% 0.015 260)",
+          "oklch(25% 0.015 260)",
+          "oklch(35% 0.015 260)",
+          "oklch(45% 0.015 260)",
+          "oklch(55% 0.015 260)",
+          "oklch(65% 0.015 260)",
+          "oklch(80% 0.015 260)",
+          "oklch(95% 0.015 260)"
+        ]
+      },
+      "night-band": {
+        "role": "neutral",
+        "displayName": "Night Band",
+        "canonical": "oklch(21% 0.01 265)",
+        "tonalRamp": [
+          "oklch(15% 0.01 265)",
+          "oklch(25% 0.01 265)",
+          "oklch(35% 0.01 265)",
+          "oklch(45% 0.01 265)",
+          "oklch(55% 0.01 265)",
+          "oklch(65% 0.01 265)",
+          "oklch(80% 0.01 265)",
+          "oklch(95% 0.01 265)"
+        ]
+      },
+      "night-raised": {
+        "role": "neutral",
+        "displayName": "Night Raised",
+        "canonical": "oklch(30% 0.017 265)",
+        "tonalRamp": [
+          "oklch(15% 0.017 265)",
+          "oklch(25% 0.017 265)",
+          "oklch(35% 0.017 265)",
+          "oklch(45% 0.017 265)",
+          "oklch(55% 0.017 265)",
+          "oklch(65% 0.017 265)",
+          "oklch(80% 0.017 265)",
+          "oklch(95% 0.017 265)"
+        ]
+      },
+      "on-night-soft": {
+        "role": "neutral",
+        "displayName": "On Night Soft",
+        "canonical": "oklch(85% 0.015 265)",
+        "tonalRamp": [
+          "oklch(15% 0.015 265)",
+          "oklch(25% 0.015 265)",
+          "oklch(35% 0.015 265)",
+          "oklch(45% 0.015 265)",
+          "oklch(55% 0.015 265)",
+          "oklch(65% 0.015 265)",
+          "oklch(80% 0.015 265)",
+          "oklch(95% 0.015 265)"
+        ]
+      },
+      "night-link": {
+        "role": "neutral",
+        "displayName": "Night Link",
+        "canonical": "oklch(81% 0.09 270)",
+        "tonalRamp": [
+          "oklch(15% 0.08 270)",
+          "oklch(25% 0.08 270)",
+          "oklch(35% 0.08 270)",
+          "oklch(45% 0.08 270)",
+          "oklch(55% 0.08 270)",
+          "oklch(65% 0.08 270)",
+          "oklch(80% 0.08 270)",
+          "oklch(95% 0.08 270)"
+        ]
+      },
+      "night-star": {
+        "role": "tertiary",
+        "displayName": "Night Star",
+        "canonical": "oklch(84% 0.15 78)",
+        "tonalRamp": [
+          "oklch(15% 0.13 78)",
+          "oklch(25% 0.13 78)",
+          "oklch(35% 0.13 78)",
+          "oklch(45% 0.13 78)",
+          "oklch(55% 0.13 78)",
+          "oklch(65% 0.13 78)",
+          "oklch(80% 0.13 78)",
+          "oklch(95% 0.13 78)"
+        ]
+      },
+      "error-red": {
+        "role": "error",
+        "displayName": "Error Red",
+        "canonical": "oklch(52% 0.19 25)",
+        "tonalRamp": [
+          "oklch(15% 0.15 25)",
+          "oklch(25% 0.15 25)",
+          "oklch(35% 0.15 25)",
+          "oklch(45% 0.15 25)",
+          "oklch(55% 0.15 25)",
+          "oklch(65% 0.15 25)",
+          "oklch(80% 0.15 25)",
+          "oklch(95% 0.15 25)"
+        ]
+      },
+      "error-wash": {
+        "role": "error",
+        "displayName": "Error Wash",
+        "canonical": "oklch(95% 0.02 20)",
+        "tonalRamp": [
+          "oklch(15% 0.03 20)",
+          "oklch(25% 0.03 20)",
+          "oklch(35% 0.03 20)",
+          "oklch(45% 0.03 20)",
+          "oklch(55% 0.03 20)",
+          "oklch(65% 0.03 20)",
+          "oklch(80% 0.03 20)",
+          "oklch(95% 0.03 20)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Home headline and course titles on the night band."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Home section headings, the enrol card price, checkout done heading."
+      },
+      "headline-small": {
+        "displayName": "Headline Small",
+        "purpose": "Section headings inside course pages and lesson notes."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Course card titles, sidebar heading, instructor name; sans, never serif."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading text, capped at 58 to 68ch."
+      },
+      "body-small": {
+        "displayName": "Body Small",
+        "purpose": "Card meta, lesson rows, hints, breadcrumbs, field labels at 700."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Tags, demo strip, count badge. Never uppercase."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "Code inside lessons and on course covers only."
+      }
+    },
+    "shadows": [
+      {
+        "name": "rest",
+        "value": "0 1px 2px rgb(22 24 29 / 0.06), 0 8px 24px -12px rgb(22 24 29 / 0.18)",
+        "purpose": "Hero search pill and quiet floating panels."
+      },
+      {
+        "name": "lift",
+        "value": "0 2px 4px rgb(22 24 29 / 0.06), 0 18px 40px -18px rgb(22 24 29 / 0.32)",
+        "purpose": "Sticky enrol card, hero proof, enrol play button, covers on hover."
+      },
+      {
+        "name": "header-drop",
+        "value": "0 2px 8px -6px rgb(22 24 29 / 0.25)",
+        "purpose": "The sticky site header only."
+      },
+      {
+        "name": "cover-edge",
+        "value": "inset 0 0 0 1px rgb(22 24 29 / 0.06)",
+        "purpose": "Keeps light cover tints edged on white."
+      },
+      {
+        "name": "nav-current",
+        "value": "inset 0 -3px 0 #2453d6",
+        "purpose": "Underline for the current header link."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Default easing for lifts, chevrons, fills and the tick draw."
+      },
+      {
+        "name": "hover",
+        "value": "160ms ease",
+        "purpose": "Colour, border and background changes on buttons, chips, options, links."
+      },
+      {
+        "name": "press",
+        "value": "scale(0.97) over 120ms ease-out",
+        "purpose": "Button press."
+      },
+      {
+        "name": "chevron",
+        "value": "transform 200ms ease-out",
+        "purpose": "Curriculum module disclosure rotation and play button scale."
+      },
+      {
+        "name": "cover-lift",
+        "value": "translateY(-3px) over 220ms ease-out",
+        "purpose": "Course card cover on hover, hover-capable pointers only."
+      },
+      {
+        "name": "progress-fill",
+        "value": "clip-path 400ms ease-out",
+        "purpose": "Progress bar fill change."
+      },
+      {
+        "name": "tick-draw",
+        "value": "stroke-dashoffset 22 to 0 over 360 to 480ms ease-out",
+        "purpose": "The one authored moment: a completion tick drawing itself (Mark complete, checkout done)."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "durations 0.01ms",
+        "purpose": "All transitions and animations collapse under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "header-compact",
+        "value": "1000px"
+      },
+      {
+        "name": "stack",
+        "value": "900px"
+      },
+      {
+        "name": "phone",
+        "value": "640px"
+      },
+      {
+        "name": "small-phone",
+        "value": "520px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one main action per view: Start free course, Buy now, Continue, Pay.",
+      "html": "<button class=\"ds-btn-primary\"><svg viewBox=\"0 0 24 24\" width=\"20\" fill=\"currentColor\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M8 5.5v13l10.5-6.5Z\"/></svg>Start free course</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 24px; border: 1.5px solid #2453d6; border-radius: 6px; background: #2453d6; color: #fff; font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif; font-size: 1.0625rem; font-weight: 700; cursor: pointer; transition: background-color 160ms ease, border-color 160ms ease, transform 120ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-btn-primary:hover { background: #1b40ad; border-color: #1b40ad; } .ds-btn-primary:active { transform: scale(0.97); } .ds-btn-primary:focus-visible { outline: 3px solid #2453d6; outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Every secondary action.",
+      "html": "<button class=\"ds-btn-outline\">Print certificate</button>",
+      "css": ".ds-btn-outline { min-height: 48px; padding: 0 24px; border: 1.5px solid #16181d; border-radius: 6px; background: #fff; color: #16181d; font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif; font-size: 1.0625rem; font-weight: 700; cursor: pointer; transition: background-color 160ms ease, transform 120ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-btn-outline:hover { background: #f6f7f9; } .ds-btn-outline:active { transform: scale(0.97); } .ds-btn-outline:focus-visible { outline: 3px solid #2453d6; outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Labelled field with hint, used in checkout and for the certificate name.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Full name</span><input placeholder=\"As it should appear on the certificate\"><span class=\"ds-field-hint\">Only saved in this browser.</span></label>",
+      "css": ".ds-field { display: grid; gap: 4px; max-width: 360px; font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif; } .ds-field-label { font-size: 0.9375rem; font-weight: 700; color: #16181d; } .ds-field input { min-height: 48px; padding: 8px 12px; border: 1.5px solid #c3c9d3; border-radius: 6px; background: #fff; font: inherit; font-size: 1.0625rem; color: #16181d; } .ds-field input::placeholder { color: #6b7280; } .ds-field input:hover { border-color: #5f6776; } .ds-field input:focus-visible { border-color: #2453d6; outline: 3px solid #2453d6; outline-offset: 0; } .ds-field-hint { font-size: 0.9375rem; color: #5f6776; }"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "search-pill",
+      "description": "Wordmark, links with a blue underline on the current page, grey pill search, My learning with a count badge.",
+      "html": "<nav class=\"ds-nav\"><b class=\"ds-nav-brand\">Takhti</b><a href=\"#\" aria-current=\"page\">Courses</a><a href=\"#\">Free courses</a><input class=\"ds-nav-search\" placeholder=\"Search for a course\"><a href=\"#\">My learning <span class=\"ds-nav-count\">2</span></a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 8px; min-height: 68px; padding: 0 16px; background: #fff; border-bottom: 1px solid #dde1e7; box-shadow: 0 2px 8px -6px rgb(22 24 29 / 0.25); font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif; } .ds-nav-brand { margin-right: 16px; font-family: 'Source Serif 4', Georgia, serif; font-size: 1.5rem; letter-spacing: -0.01em; color: #16181d; } .ds-nav a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border-radius: 6px; color: #16181d; font-weight: 600; text-decoration: none; } .ds-nav a:hover { background: #f6f7f9; } .ds-nav a[aria-current] { color: #1b40ad; box-shadow: inset 0 -3px 0 #2453d6; border-radius: 0; } .ds-nav a:focus-visible { outline: 3px solid #2453d6; outline-offset: 2px; } .ds-nav-search { flex: 1; max-width: 320px; min-height: 44px; padding: 0 16px; border: 1.5px solid #c3c9d3; border-radius: 999px; background: #f6f7f9; font: inherit; } .ds-nav-search:focus-visible { border-color: #2453d6; background: #fff; outline: 3px solid #2453d6; outline-offset: 0; } .ds-nav-count { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: #2453d6; color: #fff; font-size: 0.8125rem; font-weight: 700; }"
+    },
+    {
+      "name": "Tags and Topic Chip",
+      "kind": "chip",
+      "refersTo": "tag-free",
+      "description": "Free tag (green), level tag (neutral), brand tag, and a topic chip pill.",
+      "html": "<div class=\"ds-tags\"><span class=\"ds-tag ds-tag-free\">Free</span><span class=\"ds-tag\">Beginner</span><span class=\"ds-tag ds-tag-brand\">Enrolled</span><button class=\"ds-topic\">Python</button></div>",
+      "css": ".ds-tags { display: flex; align-items: center; gap: 8px; font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif; } .ds-tag { padding: 2px 8px; border-radius: 6px; background: #eceff3; color: #474e5c; font-size: 0.8125rem; font-weight: 700; line-height: 1.5; } .ds-tag-free { background: #e5f3ec; color: #0f7a55; } .ds-tag-brand { background: #eaf0fd; color: #1b40ad; } .ds-topic { min-height: 40px; padding: 0 16px; border: 1.5px solid #c3c9d3; border-radius: 999px; background: #fff; font: inherit; font-size: 0.9375rem; font-weight: 600; cursor: pointer; transition: border-color 160ms ease, background-color 160ms ease; } .ds-topic:hover { border-color: #5f6776; } .ds-topic:focus-visible { outline: 3px solid #2453d6; outline-offset: 2px; }"
+    },
+    {
+      "name": "Course Card",
+      "kind": "card",
+      "refersTo": "course-cover",
+      "description": "Boxless card: 16:9 code-drawn cover, sans title, instructor, stars, meta, price or Free, optional progress.",
+      "html": "<a class=\"ds-card\" href=\"#\"><div class=\"ds-card-cover\"><code>&lt;h1&gt;Hello, Pakistan&lt;/h1&gt;</code></div><b class=\"ds-card-title\">Web Design with HTML and CSS</b><span class=\"ds-card-muted\">Hamza Qureshi</span><span class=\"ds-card-stars\">4.8 <svg viewBox=\"0 0 24 24\" width=\"15\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8Z\"/></svg><svg viewBox=\"0 0 24 24\" width=\"15\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8Z\"/></svg><svg viewBox=\"0 0 24 24\" width=\"15\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8Z\"/></svg><svg viewBox=\"0 0 24 24\" width=\"15\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8Z\"/></svg><svg viewBox=\"0 0 24 24\" width=\"15\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8Z\"/></svg> <em>(1,610 ratings)</em></span><span class=\"ds-card-muted\">6 hours · 9 lessons · Beginner</span><span class=\"ds-card-free\">Free</span><div class=\"ds-bar\"><span style=\"--p:33%\"></span></div><span class=\"ds-card-prog\">3 of 9 lessons done</span></a>",
+      "css": ".ds-card { display: grid; gap: 4px; max-width: 340px; color: #16181d; text-decoration: none; font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif; } .ds-card-cover { display: grid; place-items: center; aspect-ratio: 16 / 9; margin-bottom: 8px; border-radius: 10px; background: #1d2230; color: #7fb4ff; box-shadow: inset 0 0 0 1px rgb(22 24 29 / 0.06); transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 220ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-card-cover code { font-family: 'Source Code Pro', Consolas, monospace; font-size: 0.9rem; } .ds-card:hover .ds-card-cover { transform: translateY(-3px); box-shadow: 0 2px 4px rgb(22 24 29 / 0.06), 0 18px 40px -18px rgb(22 24 29 / 0.32); } .ds-card-title { font-size: 1.25rem; line-height: 1.25; transition: color 160ms ease; } .ds-card:hover .ds-card-title { color: #1b40ad; } .ds-card:focus-visible { outline: 3px solid #2453d6; outline-offset: 4px; border-radius: 10px; } .ds-card-muted { font-size: 0.9375rem; color: #5f6776; } .ds-card-stars { display: inline-flex; align-items: center; gap: 2px; color: #9a5800; font-weight: 700; } .ds-card-stars em { margin-left: 4px; font-style: normal; font-weight: 400; color: #5f6776; } .ds-card-free { justify-self: start; margin-top: 4px; padding: 2px 8px; border-radius: 6px; background: #e5f3ec; color: #0f7a55; font-size: 0.8125rem; font-weight: 700; } .ds-bar { height: 8px; margin-top: 8px; border-radius: 999px; background: #eceff3; overflow: hidden; } .ds-bar span { display: block; height: 100%; background: #2453d6; clip-path: inset(0 calc(100% - var(--p, 0%)) 0 0 round 999px); transition: clip-path 400ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-card-prog { font-size: 0.9375rem; font-weight: 600; color: #474e5c; }"
+    },
+    {
+      "name": "Course Band with Enrol Card",
+      "kind": "custom",
+      "refersTo": "enrol-card",
+      "description": "Night band behind the course title with the white enrol card beside it.",
+      "html": "<div class=\"ds-band\"><div class=\"ds-band-words\"><span class=\"ds-band-crumbs\">Courses / Web and coding</span><b class=\"ds-band-title\">Web Design with HTML and CSS</b><span class=\"ds-band-sub\">Build and publish your own website from scratch.</span><span class=\"ds-band-stars\">4.8 <svg viewBox=\"0 0 24 24\" width=\"15\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8Z\"/></svg><svg viewBox=\"0 0 24 24\" width=\"15\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8Z\"/></svg><svg viewBox=\"0 0 24 24\" width=\"15\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8Z\"/></svg><svg viewBox=\"0 0 24 24\" width=\"15\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8Z\"/></svg><svg viewBox=\"0 0 24 24\" width=\"15\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8Z\"/></svg></span></div><div class=\"ds-enrol\"><b class=\"ds-enrol-price\">Free</b><button class=\"ds-enrol-btn\">Start free course</button><span class=\"ds-enrol-note\">No account and no card needed.</span></div></div>",
+      "css": ".ds-band { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px; padding: 32px; background: #16181d; color: #fff; font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif; } .ds-band-words { display: grid; gap: 12px; flex: 1; min-width: 240px; } .ds-band-crumbs { font-size: 0.9375rem; font-weight: 700; color: #a9c1ff; } .ds-band-title { font-family: 'Source Serif 4', Georgia, serif; font-size: 2.25rem; line-height: 1.12; letter-spacing: -0.02em; } .ds-band-sub { font-size: 1.25rem; line-height: 1.45; color: #c9ced8; } .ds-band-stars { display: inline-flex; align-items: center; gap: 2px; color: #ffc04d; font-weight: 700; } .ds-enrol { display: grid; gap: 12px; width: 280px; padding: 24px; border: 1px solid #dde1e7; border-radius: 16px; background: #fff; color: #16181d; box-shadow: 0 2px 4px rgb(22 24 29 / 0.06), 0 18px 40px -18px rgb(22 24 29 / 0.32); } .ds-enrol-price { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.875rem; line-height: 1.1; } .ds-enrol-btn { min-height: 48px; border: 1.5px solid #2453d6; border-radius: 6px; background: #2453d6; color: #fff; font: inherit; font-weight: 700; cursor: pointer; transition: background-color 160ms ease; } .ds-enrol-btn:hover { background: #1b40ad; } .ds-enrol-btn:focus-visible { outline: 3px solid #2453d6; outline-offset: 2px; } .ds-enrol-note { font-size: 0.9375rem; color: #5f6776; text-align: center; }"
+    },
+    {
+      "name": "Curriculum Module",
+      "kind": "custom",
+      "refersTo": "progress-bar",
+      "description": "Disclosure module with lesson rows; a completed lesson shows a white tick in a green circle.",
+      "html": "<details class=\"ds-mod\" open><summary><svg viewBox=\"0 0 24 24\" width=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 9l6 6 6-6\"/></svg><span><b>Your first web page</b><br><small>3 lessons · 41 min</small></span></summary><ol><li><i class=\"ds-tick\"><svg viewBox=\"0 0 24 24\" width=\"14\" fill=\"none\" stroke=\"#fff\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12.5l4.5 4.5L19 7.5\"/></svg></i><span>How websites work</span><small>10 min</small></li><li><i class=\"ds-play\"><svg viewBox=\"0 0 24 24\" width=\"18\" fill=\"currentColor\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M8 5.5v13l10.5-6.5Z\"/></svg></i><a href=\"#\">Your first HTML file</a><small>15 min</small></li></ol></details>",
+      "css": ".ds-mod { max-width: 480px; border: 1px solid #dde1e7; border-radius: 16px; overflow: hidden; font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif; } .ds-mod summary { display: flex; gap: 12px; padding: 16px 24px; background: #f6f7f9; cursor: pointer; list-style: none; } .ds-mod summary::-webkit-details-marker { display: none; } .ds-mod summary:hover { background: #eceff3; } .ds-mod summary:focus-visible { outline: 3px solid #2453d6; outline-offset: -3px; } .ds-mod summary svg { flex: none; transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-mod:not([open]) summary svg { transform: rotate(-90deg); } .ds-mod small { font-size: 0.9375rem; color: #5f6776; } .ds-mod ol { margin: 0; padding: 8px 0; list-style: none; } .ds-mod li { display: grid; grid-template-columns: 20px 1fr auto; align-items: center; gap: 12px; padding: 8px 24px; font-size: 0.9375rem; } .ds-mod a { color: #2453d6; } .ds-mod a:hover { color: #1b40ad; } .ds-tick { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #0f7a55; } .ds-play { display: grid; color: #5f6776; }"
+    },
+    {
+      "name": "Quiz Option",
+      "kind": "custom",
+      "refersTo": "quiz-option",
+      "description": "Radio row with a custom dot; checked takes the blue border and wash.",
+      "html": "<label class=\"ds-opt\"><input type=\"radio\" name=\"q\" checked><span class=\"ds-dot\"></span>A tag that makes a heading</label><label class=\"ds-opt\"><input type=\"radio\" name=\"q\"><span class=\"ds-dot\"></span>A colour value</label>",
+      "css": ".ds-opt { position: relative; display: flex; align-items: center; gap: 12px; min-height: 48px; max-width: 420px; margin-bottom: 8px; padding: 8px 16px; border: 1.5px solid #c3c9d3; border-radius: 6px; cursor: pointer; font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif; transition: border-color 160ms ease, background-color 160ms ease; } .ds-opt:hover { border-color: #5f6776; } .ds-opt input { position: absolute; opacity: 0; width: 20px; height: 20px; margin: 0; } .ds-dot { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border: 2px solid #5f6776; border-radius: 50%; } .ds-dot::after { content: ''; width: 10px; height: 10px; border-radius: 50%; background: #2453d6; transform: scale(0); transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-opt:has(input:checked) { border-color: #2453d6; background: #eaf0fd; } .ds-opt input:checked + .ds-dot { border-color: #2453d6; } .ds-opt input:checked + .ds-dot::after { transform: scale(1); } .ds-opt input:focus-visible + .ds-dot { outline: 3px solid #2453d6; outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Open Syllabus",
+    "overview": "Takhti is the course site a student already knows how to use. White pages, a cool grey for bands and inputs, near black ink, one blue that does every job an action does, and a dark band behind the title of every course. Nothing is themed. The craft lives in the details a learner touches: a card that already says hours, lessons, level, rating and price; a course page that opens the whole curriculum before the price asks for anything; a progress bar that shows up wherever the course does.\n\nThe density is the category's: generous on the catalogue and course page, tight and functional in the player and checkout. Headlines and course titles are set in a serif over a sans interface, the familiar pattern of the big course marketplaces. The only imagery is course covers drawn in code (a Word window, a spreadsheet, a code editor, a terminal, an artboard, a gig card), each on its own soft tint, so the catalogue looks illustrated without a single photo on mobile data.\n\nThe direction was chosen by the user as the category standard, played straight. The visual rejection is quirky theming: no metaphor world, no decorative texture, no second accent colour.",
+    "keyCharacteristics": [
+      "White pages, cool grey bands, one brand blue for action, link, focus, selection and progress.",
+      "Green means Free or Completed and nothing else; amber is only for rating stars.",
+      "A near black band carries course titles, the demo strip, the player top bar and the footer.",
+      "Serif headlines over a sans interface; the sans also sets card titles and every control.",
+      "Course covers are code-drawn artwork at 16:9 on a per-course tint.",
+      "Flat surfaces with hairlines; soft shadows only on floating proof, the enrol card and hovered covers."
+    ],
+    "rules": [
+      {
+        "name": "The One Blue Rule",
+        "body": "Every interactive affordance uses Takhti Blue. No second accent exists; a new feature that wants attention gets a primary button, not a new colour.",
+        "section": "colors"
+      },
+      {
+        "name": "The Green Means Done Rule",
+        "body": "Free Green is reserved for Free and Completed. It never decorates, never marks success of a form in general, and never appears on an unfinished state.",
+        "section": "colors"
+      },
+      {
+        "name": "The Stars Only Rule",
+        "body": "Amber appears only in rating stars and their number.",
+        "section": "colors"
+      },
+      {
+        "name": "The Serif Promises, Sans Works Rule",
+        "body": "Serif sets headings, course titles in hero contexts, the wordmark and prices. Card titles, controls, labels and lesson rows are always the sans.",
+        "section": "typography"
+      },
+      {
+        "name": "The No Shouting Rule",
+        "body": "No uppercase labels and no tracked out small caps. Hierarchy comes from size, weight and the serif, never from letter-spacing. Numbers that line up (prices, counts, progress) use tabular figures.",
+        "section": "typography"
+      },
+      {
+        "name": "The Float Only Rule",
+        "body": "A shadow means the element sits above the scroll (sticky, overlapping, or lifted by hover). Static cards and panels get a hairline instead.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use Takhti Blue (#2453d6) for every action, link, focus ring and progress fill, and Blue Deep (#1b40ad) for their hover.",
+      "Do keep Free Green (#0f7a55) for Free and Completed only.",
+      "Do put hours, lesson count, level, rating and price (or Free) on every course card.",
+      "Do draw new course covers in code at 16:9 on a soft per-course tint, using real product scenes (a window, a sheet, an editor).",
+      "Do show progress the same way everywhere: an 8px pill track in Surface Deep with a blue fill that turns green when finished.",
+      "Do keep motion quick and quiet: 160ms hovers, 200 to 220ms chevrons and cover lifts, the 400ms progress fill, and one tick drawing itself on completion; respect reduced motion.",
+      "Do label anything made up (reviews, numbers, the payment step, certificates) as a demo in plain text."
+    ],
+    "donts": [
+      "Don't add a second accent colour, gradients on controls, or a themed texture; the user chose the category standard played straight.",
+      "Don't use uppercase or letter-spaced labels above headings.",
+      "Don't set card titles, buttons or form labels in the serif.",
+      "Don't put a shadow on a static card; use a hairline.",
+      "Don't use stock photos or real instructor photos; instructors are initials on a soft tone.",
+      "Don't add scroll-triggered entrance animations."
+    ]
+  }
+}

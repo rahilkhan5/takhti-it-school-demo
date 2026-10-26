@@ -1,0 +1,38 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          "src/components/Cover.astro",
+          "src/pages/certificate/**"
+        ],
+        "createdAt": "2026-10-26T03:47:24.549Z",
+        "reason": "Agent: course cover artwork and the certificate paper keep their own palette and scale inside the artwork, recorded in DESIGN.md under Artwork palettes"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          "src/components/Cover.astro",
+          "src/pages/certificate/**"
+        ],
+        "createdAt": "2026-10-26T03:47:24.934Z",
+        "reason": "Agent: course cover artwork and the certificate paper keep their own palette and scale inside the artwork, recorded in DESIGN.md under Artwork palettes"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          "src/components/Cover.astro",
+          "src/pages/certificate/**"
+        ],
+        "createdAt": "2026-10-26T03:47:25.259Z",
+        "reason": "Agent: course cover artwork and the certificate paper keep their own palette and scale inside the artwork, recorded in DESIGN.md under Artwork palettes"
+      }
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+---
+// An instructor's initials on a soft colour. Instructors are made up, so no photos.
+interface Props {
+  name: string;
+  size?: number;
+}
+const { name, size = 48 } = Astro.props;
+const initials = name
+  .split(' ')
+  .map((w) => w[0])
+  .slice(0, 2)
+  .join('');
+const tones = [
+  ['#e3ebfd', '#1b40ad'],
+  ['#e5f3ec', '#0b6446'],
+  ['#fdebe0', '#9a3d0b'],
+  ['#f0e6fb', '#5b2a97'],
+  ['#fff1cc', '#7a5200'],
+];
+let h = 0;
+for (const ch of name) h = (h + ch.charCodeAt(0)) % tones.length;
+const [bg, fg] = tones[h];
+---
+
+<span class="avatar" style={`--size:${size}px; --bg:${bg}; --fg:${fg}`} aria-hidden="true">{initials}</span>
+
+<style>
+  .avatar {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background: var(--bg);
+    color: var(--fg);
+    font-weight: 700;
+    font-size: calc(var(--size) * 0.36);
+    letter-spacing: 0.02em;
+  }
+</style>

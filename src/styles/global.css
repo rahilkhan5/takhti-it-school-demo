@@ -1,0 +1,390 @@
+/* Takhti IT School: a calm, familiar course site. White pages, one brand blue
+   for actions and progress, green only for Free and Completed. */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('/fonts/source-serif-4-latin-wght-normal.woff2') format('woff2');
+  font-weight: 200 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('/fonts/source-sans-3-latin-wght-normal.woff2') format('woff2');
+  font-weight: 200 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  src: url('/fonts/source-code-pro-latin-wght-normal.woff2') format('woff2');
+  font-weight: 200 900;
+  font-display: swap;
+}
+
+:root {
+  --bg: #ffffff;
+  --surface: #f6f7f9;
+  --surface-2: #eceff3;
+  --ink: #16181d;
+  --ink-2: #474e5c;
+  --ink-3: #5f6776;
+  --line: #dde1e7;
+  --line-strong: #c3c9d3;
+  --brand: #2453d6;
+  --brand-deep: #1b40ad;
+  --brand-soft: #eaf0fd;
+  --free: #0f7a55;
+  --free-soft: #e5f3ec;
+  --star: #9a5800;
+  --dark: #16181d;
+  --dark-2: #2a2e37;
+  --on-dark: #ffffff;
+  --on-dark-2: #c9ced8;
+  --on-dark-link: #a9c1ff;
+  --on-dark-star: #ffc04d;
+  --on-dark-free: #7fe0b5;
+  --stage-glow: #23324f;
+  --stage-deep: #0d0f13;
+  --stage-scrim: rgb(0 0 0 / 0.55);
+  --stage-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.6);
+  --error: #c0262d;
+  --error-soft: #fdecec;
+  --white: #ffffff;
+
+  --font-head: 'Source Serif 4', Georgia, serif;
+  --font: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  --font-code: 'Source Code Pro', Consolas, monospace;
+
+  --step--2: 0.8125rem;
+  --step--1: 0.9375rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.25rem;
+  --step-2: clamp(1.5rem, 1.25rem + 0.9vw, 1.875rem);
+  --step-3: clamp(1.875rem, 1.4rem + 1.9vw, 2.75rem);
+  --step-4: clamp(2.25rem, 1.5rem + 3vw, 3.75rem);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 6.5rem;
+
+  --radius-s: 6px;
+  --radius: 10px;
+  --radius-l: 16px;
+  --page: min(1240px, 100% - 2rem);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --shadow: 0 1px 2px rgb(22 24 29 / 0.06), 0 8px 24px -12px rgb(22 24 29 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(22 24 29 / 0.06), 0 18px 40px -18px rgb(22 24 29 / 0.32);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--space-6);
+  scrollbar-color: var(--line-strong) var(--surface);
+  accent-color: var(--brand);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  caret-color: var(--brand);
+}
+
+::selection {
+  background: var(--brand);
+  color: var(--white);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-head);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+
+h2 {
+  font-size: var(--step-3);
+}
+
+h3 {
+  font-size: var(--step-1);
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--brand);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  color: var(--brand-deep);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+code,
+kbd {
+  font-family: var(--font-code);
+  font-size: 0.92em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.page {
+  width: var(--page);
+  margin-inline: auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Buttons: blue for the main action, outlined for the rest. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: 0 var(--space-5);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-s);
+  background: var(--white);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: var(--step-0);
+  line-height: 1.2;
+  text-decoration: none;
+  transition: background-color 160ms ease, border-color 160ms ease, transform 120ms var(--ease-out);
+}
+
+.button svg {
+  width: 20px;
+}
+
+.button:hover {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button.primary {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: var(--white);
+}
+
+.button.primary:hover {
+  border-color: var(--brand-deep);
+  background: var(--brand-deep);
+  color: var(--white);
+}
+
+.button.wide {
+  width: 100%;
+}
+
+.button:disabled,
+.button[aria-disabled='true'] {
+  border-color: var(--line-strong);
+  background: var(--surface-2);
+  color: var(--ink-3);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Small labels on cards: Free, level, Completed. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-s);
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font-size: var(--step--2);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.tag.free {
+  background: var(--free-soft);
+  color: var(--free);
+}
+
+.tag.brand {
+  background: var(--brand-soft);
+  color: var(--brand-deep);
+}
+
+/* Progress bar: a track and a blue fill. */
+.bar {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.bar > span {
+  display: block;
+  height: 100%;
+  background: var(--brand);
+  clip-path: inset(0 calc(100% - var(--p, 0%)) 0 0 round 999px);
+  transition: clip-path 400ms var(--ease-out);
+}
+
+.bar.done > span {
+  background: var(--free);
+}
+
+/* Form fields. */
+.field {
+  display: grid;
+  gap: var(--space-1);
+  align-content: start;
+}
+
+.field-label {
+  font-size: var(--step--1);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--space-2) var(--space-3);
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius-s);
+  background: var(--white);
+  font-size: var(--step-0);
+}
+
+.field input::placeholder {
+  color: #6b7280;
+}
+
+.field input:hover,
+.field select:hover {
+  border-color: var(--ink-3);
+}
+
+.field input:focus-visible,
+.field select:focus-visible {
+  border-color: var(--brand);
+  outline-offset: 0;
+}
+
+.field [aria-invalid='true'] {
+  border-color: var(--error);
+}
+
+.field-hint {
+  font-size: var(--step--1);
+  color: var(--ink-3);
+}
+
+.field-error {
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--error);
+}
+
+/* Rating stars. */
+.stars {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--star);
+  font-weight: 700;
+}
+
+.stars svg {
+  width: 15px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

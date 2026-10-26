@@ -1,0 +1,129 @@
+DIRECTION CONCEPT SEED (key: b2de6422; mode: persuade; source: api; approved pool: c3b204a1eed6; 306/564 human-approved; rerun with --scope direction --mode persuade --from b2de6422 --candidate-count 7 to reproduce this roll against this catalog revision)
+ASSIGNED INDEX: 7
+  After ordering the grounded directions by resonance, build candidate
+  7 of your own grounded list; the assignment never points at a
+  challenger. The assignment is the roll, not a suggestion: your top-ranked
+  direction is what every run would ship, so the script decides which grounded
+  direction gets built. Each direction joins a durable visual system to a
+  concrete expression for the requested first surface, decided as one. It must
+  survive the current task plus navigation, quiet and dense content,
+  interaction and state, and a substantially different future surface. In an
+  attended run, present the assigned direction fully committed and offer
+  re-roll. You may add ONE card for your top-ranked grounded candidate when
+  it is not the assigned direction, kicker IMPECCABLE’S PICK, with an honest risk line
+  naming its familiarity; one pick card, never a ranked lineup, and the pick
+  never takes the lead position. When the assignment IS your top candidate,
+  there is no pick card. Re-roll yourself only
+  on named factual grounds, when the assignment cannot carry the product's
+  truth or task; taste is never grounds.
+  The assignment exists to refuse the model's ranking rut, never to outrank
+  the user or the brief. Never expose assignment metadata in user-facing labels.
+CHALLENGERS:
+  1. the full-bleed portal of an experiential studio, where a GPU shader scene fills the screen and the interface floats as thin type over living pixels
+     SOURCE ID: webgl-shader-portal
+     CREATIVE SPARK: A full-screen shader breathes in slow color, a custom cursor trailing a soft distortion where it moves; a loader counts to one hundred, then thin uppercase links dissolve the mesh into the next scene as you click through.
+     SYSTEM GRAMMAR:
+       - Palette/material: a deep single-hue ground driven by a fragment shader, fine film grain, one incandescent accent for hovers
+       - Type/composition: an oversized variable grotesk for a single hero word against tiny tracked-out labels at the margins
+       - Topology/navigation: Move by hovering the shader to displace it, by clicking thin corner links, and by letting inertial scroll drift the camera through the scene.
+       - Controls/state: The cursor warps the field under it; page changes trigger a mesh transition that dissolves one scene into the next behind a percentage loader.
+       - Responsive/motion: physics-scroll inertia eases all movement, and reduced-motion freezes the scene and disables the custom cursor.
+     WEB LEVERAGE: Render the background as a single fullscreen WebGL fragment shader with a mouse-uniform displacement, and drive route changes through a shader dissolve transition rather than DOM swaps.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/webgl-shader-portal.webp · hero https://impeccable.style/worlds/cards/webgl-shader-portal-hero.webp
+  2. a collider event display, particle tracks curving out of one frozen collision through onion rings of detector and into stacked calorimeter wedges
+     SOURCE ID: scientific-notation-particle-detector-event-display
+     CREATIVE SPARK: The event lands and the cross-section blooms: yellow tracks curl through the inner rings, two stiff blue lines punch straight to the muon chambers, and red energy bars stack in the calorimeter wedges like a sudden bar chart of violence.
+     SYSTEM GRAMMAR:
+       - Palette/material: near-black vacuum ground, detector rings in muted steel blue, tracks in signal yellow and cyan by particle type, red calorimeter bars for deposited energy
+       - Type/composition: spare technical grotesk labels pinned to tracks and wedges, momentum figures in tabular digits; the concentric ring section is the compositional law
+       - Topology/navigation: space is concentric, beamline at center; you move outward through detector layers and along individual tracks, one event held at a time
+       - Controls/state: select a track to isolate it and dim the rest; competing reconstruction hypotheses overlay as ghost tracks, confidence written as line weight
+       - Responsive/motion: the ring section stays whole on phones while wedges and figures move to drawers; rotation is inertial 3D
+     WEB LEVERAGE: WebGL renders thousands of curved tracks in one 3D scene, with drag rotation, zoom into detector layers, and picked tracks reporting momentum
+     QUALITY BAR: board https://impeccable.style/worlds/cards/scientific-notation-particle-detector-event-display.webp · hero https://impeccable.style/worlds/cards/scientific-notation-particle-detector-event-display-hero.webp
+  3. a club wall where flyers are stapled over flyers, the top layer torn back in strips to expose four earlier nights at once, staple holes perforating every generation and one fresh sheet pasted crooked over all of it
+     SOURCE ID: posters-covers-sleeves-torn-flyer-photocopy-wall
+     CREATIVE SPARK: Somebody tore a strip off the wall to see what was playing last month and found three more nights underneath, each one stapled through the last.
+     SYSTEM GRAMMAR:
+       - Palette/material: photocopy black on saturated fluorescent stock, older layers sun-bleached to pastel, staple holes punched through every generation
+       - Type/composition: heavy display caps at four different scales fighting across torn edges, with only the newest sheet fully legible
+       - Topology/navigation: depth is calendar, so navigation tears a strip back to reach a night that already happened
+       - Controls/state: controls are torn strips, pulling one exposes the sheet beneath, and exposed layers stay open as a record
+       - Responsive/motion: strips retear to fit any width, and motion is a paper rip that catches on a staple
+     WEB LEVERAGE: layered svg tear masks generated responsive, pointer-driven strip reveal, and persistent exposed state
+     QUALITY BAR: board https://impeccable.style/worlds/cards/posters-covers-sleeves-torn-flyer-photocopy-wall.webp · hero https://impeccable.style/worlds/cards/posters-covers-sleeves-torn-flyer-photocopy-wall-hero.webp
+  4. a car body wrapped in printed vinyl, a character illustration scaled across the door and quarter panel with sponsor-style logo strips applied along the sill in deliberate racing arrangement
+     SOURCE ID: pop-culture-shelf-itasha-vinyl-wrap
+     CREATIVE SPARK: an illustration scaled so large it breaks across the door and the rear quarter, with a seam running right through it, and a row of sponsor logos along the sill for races that never happened.
+     SYSTEM GRAMMAR:
+       - Palette/material: printed vinyl gloss over body paint, saturated illustration color with a visible seam at every panel gap
+       - Type/composition: illustration scaled to break across panels, sponsor-style logo strips ranged along the sill, and a number roundel on the door
+       - Topology/navigation: panels are the layout, so navigation follows the art across a seam onto the next panel
+       - Controls/state: controls are logo strips, the active one lifts to full gloss, and inactive ones sit matte against the vinyl
+       - Responsive/motion: artwork rescales across whatever panels the frame gives it, and motion is a gloss highlight travelling a seam
+     WEB LEVERAGE: responsive art scaling across panel breaks, a gloss highlight animation travelling seams, and logo strip state
+     QUALITY BAR: board https://impeccable.style/worlds/cards/pop-culture-shelf-itasha-vinyl-wrap.webp · hero https://impeccable.style/worlds/cards/pop-culture-shelf-itasha-vinyl-wrap-hero.webp
+  5. a wide silk cape threaded with hidden drawcord channels, where one pull transforms a flat plane into ribs, gathers, and a protective volume
+     SOURCE ID: textiles-weave-drape-fashion-drawcord-transforming-cape
+     CREATIVE SPARK: The cape begins as a black semicircle; one gold cord is pulled and the cloth rises into a pleated shell around the shoulders.
+     SYSTEM GRAMMAR:
+       - Palette/material: matte black silk as ground, one gold drawcord as accent and control, channel stitching in graphite, gathered shadow rendered in slate
+       - Type/composition: narrow tailored grotesk with wide tracking like topstitching, labels riding the cord channels, the semicircle's radius ruling all alignment
+       - Topology/navigation: Trace cord channel, gathered region, anchor, and complete silhouette through each transformation.
+       - Controls/state: Pull, lock, release, and compare with flat, gathering, shaped, tensioned, and relaxed states.
+       - Responsive/motion: Offer a small set of named silhouettes on phones and let users advance transformations stepwise.
+     WEB LEVERAGE: A constraint-driven cloth model can demonstrate functional transformation while static pattern and pose views remain complete.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/textiles-weave-drape-fashion-drawcord-transforming-cape.webp · hero https://impeccable.style/worlds/cards/textiles-weave-drape-fashion-drawcord-transforming-cape-hero.webp
+  6. an alphabet storm, where letters condense into words, break into weather, and reshape the landscape according to grammar
+     SOURCE ID: dream-surreal-impossible-worlds-alphabet-storm
+     CREATIVE SPARK: Black letters gather into CLOUD, burst into rain, and carve the word RIVER across white ground; changing one vowel turns the current into a field of silver ravens.
+     SYSTEM GRAMMAR:
+       - Palette/material: paper white ground, storm-letter black as both body ink and weather mass, one silver flash for words mid-transformation, rain gray for spent grammar
+       - Type/composition: a single monumental grotesk behaving as matter, kerning loosening into wind, words breaking across lines as literal weather fronts on an open field
+       - Topology/navigation: Travel between letter fronts, word formations, grammatical forces, and the landscapes they produce.
+       - Controls/state: Type, split, conjugate, and recombine language while physical consequences remain reversible.
+       - Responsive/motion: Use one word-weather event per phone viewport and preserve readable text throughout transformation.
+     WEB LEVERAGE: Text parsing, procedural particles, and semantic rules turn typed language into deterministic weather with accessible narrative descriptions.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-alphabet-storm.webp · hero https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-alphabet-storm-hero.webp
+Fuse each challenger before judging it: the challenger supplies the form
+  and its system grammar, the product supplies every fact, and clarity wins
+  conflicts. Weigh the fused result against the assigned direction on exactly
+  two axes, audience identification and product clarity. Losing to strong
+  grounded material is a valid outcome; beating a thin or tool-monoculture
+  list is the point. A fused challenger that wins both axes becomes the build.
+  Close the weighing with a verdict per challenger, decided before any
+  borrowing is considered: wins (beats the assigned direction on both axes),
+  competitive (holds one axis), or declined (loses both). A declined
+  challenger is not spent: name the one discipline of its system the assigned
+  direction lacks, and raise the assigned direction to match before
+  presenting it. A donation transfers ambition and system discipline, never
+  the challenger's clothes; one world owns the page. Write each raise as its
+  own named line on the presented direction, and carry every verdict, kept
+  line, and raise into the decision page payload.
+When you can view images, open the QUALITY BAR board and hero for any
+challenger you weigh seriously and for the world you build. They exist as a
+craft bar, the finish level and commitment the build is expected to reach,
+never as a mockup to copy; your surface serves this product, not that render.
+PRODUCT.md and explicit incumbent brand commitments constrain every direction.
+The seed never chooses exact colors, fonts, tokens, or a user preference, and
+it never permits the world and first surface to be selected independently.
+The CREATIVE SPARK is a complete visual system, not a theme or decorative
+reference. Translate every supplied system rule into the product: palette and
+material, type and composition, topology, controls and states, and adaptation.
+Keep the source's visible character, scale, rhythm, and interaction instead of
+reducing vivid grammar to generic nouns. When the source is already a credible
+interface language, commit to it across navigation, content, controls, and
+states. Otherwise keep a literal carrier only when it becomes functional.
+Ambitious motion, spatial media, or interaction is welcome when it strengthens
+the product without weakening semantics, performance, or fallback behavior.
+TELEMETRY: after the user's choice resolves, rerun this script once with
+  --kind <assigned|pick|challenger|canon> --from b2de6422 --scope direction --mode persuade,
+  adding --chosen <challenger-id> when a dealt challenger won and keeping
+  --register <safer|bolder> when the resolved round came from a steered hand.
+  One ping per resolved attended round. The ping is anonymous, the card kind
+  plus the catalog id when one won; your grounded candidates' names never
+  leave the machine, and the ping is skipped automatically when DO_NOT_TRACK
+  or IMPECCABLE_NO_TELEMETRY is set.
+A user- or brief-pinned decision beats the roll, always.
+ASSIGNED INDEX (restated for truncated readers): 7. Build candidate
+7 of your own grounded list; seed key b2de6422.
